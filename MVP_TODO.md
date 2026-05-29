@@ -26,6 +26,7 @@ The MVP is locally runnable, seeded with demo data, covered by browser/API smoke
 - [x] Added production environment checklist for PostgreSQL, NextAuth, Stripe and deployment checks.
 - [x] Added production env template and validation command for required live Stripe values.
 - [x] Replaced placeholder Terms and Privacy pages with launch-review draft copy.
+- [x] Hardened `/register` for real owner account creation with validation, business name and clear errors.
 - [x] Added smoke-test notes for seeded demo accounts.
 - [x] Added focused Playwright tests for protected APIs and role boundaries.
 
@@ -52,7 +53,7 @@ The MVP is locally runnable, seeded with demo data, covered by browser/API smoke
 - [ ] Enter real live Stripe values in the deployment platform secrets: `STRIPE_SECRET_KEY`, `STRIPE_PRICE_ID` and `STRIPE_WEBHOOK_SECRET`.
 - [ ] Create and test the production Stripe webhook endpoint at `/api/stripe/webhook`.
 - [ ] Replace Terms and Privacy placeholders with final legal company details and get legal sign-off.
-- [ ] Replace demo users/passwords with real production account creation.
+- [ ] Create the first real owner account in production through `/register`; do not run demo seed in production.
 - [ ] Confirm production `NEXTAUTH_URL`, `NEXTAUTH_SECRET`, `APP_URL` and `DATABASE_URL`.
 - [ ] Run `npm run prisma:deploy` against the production database during release.
 - [ ] Complete one end-to-end production billing test in Stripe live mode or a launch-equivalent staging environment.

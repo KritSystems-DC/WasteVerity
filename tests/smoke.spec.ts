@@ -17,6 +17,25 @@ async function expectHeading(page: Page, name: string) {
 }
 
 test.describe('authentication and role access', () => {
+  test('registers a new owner account and business', async ({ page }) => {
+    const timestamp = Date.now()
+    const email = `owner-${timestamp}@stocksense.test`
+    const businessName = `QA Business ${timestamp}`
+
+    await page.goto('/register')
+    await expectHeading(page, 'Register')
+    await page.locator('input').nth(0).fill('QA Owner')
+    await page.locator('input').nth(1).fill(email)
+    await page.locator('input').nth(2).fill(businessName)
+    await page.locator('input').nth(3).fill('Cafe')
+    await page.locator('input').nth(4).fill('Password123!')
+    await page.getByRole('button', { name: 'Create account' }).click()
+    await page.waitForURL('**/login')
+
+    await login(page, { email, password: 'Password123!' })
+    await expectHeading(page, 'Dashboard')
+  })
+
   test('redirects anonymous users and lets owner access business pages', async ({ page }) => {
     await page.goto('/dashboard')
     await expect(page).toHaveURL(/\/login\?callbackUrl=%2Fdashboard$/)

@@ -19,6 +19,11 @@ Demo login
 - Staff: staff@stocksense.demo / Password123!
 - Admin: admin@stocksense.demo / Password123!
 
+Production account creation
+- Use `/register` to create the first real business owner account.
+- Do not run `npm run seed` against production unless you intentionally want demo data.
+- Demo users use `@stocksense.demo` addresses and must not be used for real customers.
+
 Local setup
 1. Install dependencies
 
@@ -89,6 +94,6 @@ Future roadmap ideas
 - Staff permissions and roles
 
 Notes
-- For the demo, users are seeded with a plaintext `Password123!`. Replace with secure password hashing in production (e.g., bcrypt).
+- For the local demo, users are seeded with the shared password `Password123!`; registration-created passwords are hashed with bcrypt.
 - The Stripe integration is a placeholder; do not expect live billing until configured.
 

@@ -52,7 +52,8 @@ npm run prisma:status
 - [ ] Confirm `NEXTAUTH_SECRET` is set before starting the app.
 - [ ] Confirm `NEXTAUTH_URL` exactly matches the deployed origin, including `https://`.
 - [ ] Test login, logout and protected route redirects after deployment.
-- [ ] Create real owner/admin users for the production business.
+- [ ] Create the first real owner account through `/register`.
+- [ ] Create admin users through a controlled operational process; do not seed demo admin users in production.
 - [ ] Remove demo passwords from any public launch instructions.
 - [ ] Review password policy and account recovery before onboarding real customers.
 

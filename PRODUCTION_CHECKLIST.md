@@ -61,6 +61,13 @@ npm run prisma:status
 - [ ] Create Stripe products and recurring prices for the live plans.
 - [ ] Set `STRIPE_SECRET_KEY` to a live secret key.
 - [ ] Set `STRIPE_PRICE_ID` to the live recurring price used by checkout.
+- [ ] Set `STRIPE_WEBHOOK_SECRET` to the live webhook signing secret.
+- [ ] Confirm production env vars are present:
+
+```bash
+npm run env:check
+```
+
 - [ ] Configure a Stripe webhook endpoint:
 
 ```text
@@ -71,7 +78,6 @@ https://your-production-domain.com/api/stripe/webhook
   - `checkout.session.completed`
   - `customer.subscription.updated`
   - `customer.subscription.deleted`
-- [ ] Set `STRIPE_WEBHOOK_SECRET` from the production webhook endpoint.
 - [ ] If the frontend starts using Stripe.js, set `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` to the live publishable key.
 - [ ] Complete a live-mode test subscription before opening billing to customers.
 - [ ] Verify failed, cancelled and past-due subscription states update in `/admin/subscriptions`.

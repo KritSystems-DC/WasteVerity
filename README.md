@@ -61,6 +61,10 @@ Deployment database flow
 
 Do not run `npm run prisma:migrate` against production. It is a local development command that can create new migration files.
 
+Production environment check
+- Copy `.env.production.example` into your hosting platform's production environment settings.
+- Run `npm run env:check` in a production-like environment to confirm required values are present.
+
 Stripe
 - This repo includes placeholder API routes for creating a Checkout session and a webhook receiver. Configure Stripe keys in `.env` when ready.
 

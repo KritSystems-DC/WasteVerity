@@ -53,7 +53,16 @@ npm run prisma:status
 - [ ] Confirm `NEXTAUTH_URL` exactly matches the deployed origin, including `https://`.
 - [ ] Test login, logout and protected route redirects after deployment.
 - [ ] Create the first real owner account through `/register`.
-- [ ] Create admin users through a controlled operational process; do not seed demo admin users in production.
+- [ ] Create admin users through the controlled operator script; do not seed demo admin users in production:
+
+```powershell
+$env:ADMIN_EMAIL='admin@example.com'
+$env:ADMIN_NAME='Platform Admin'
+$env:ADMIN_PASSWORD='Use-a-long-unique-password-123!'
+$env:CONFIRM_CREATE_ADMIN='CREATE_ADMIN'
+npm run admin:create
+```
+
 - [ ] Remove demo passwords from any public launch instructions.
 - [ ] Review password policy and account recovery before onboarding real customers.
 

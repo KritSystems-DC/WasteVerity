@@ -14,6 +14,7 @@
     "prisma:generate": "prisma generate",
     "prisma:studio": "prisma studio",
     "env:check": "node scripts/check-production-env.js",
+    "admin:create": "node scripts/create-admin.js",
     "seed": "ts-node --transpile-only prisma/seed.ts"
   },
   "dependencies": {

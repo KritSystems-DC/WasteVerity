@@ -29,6 +29,7 @@ The remaining work is split into two tracks:
 - [x] Improved reports beyond CSV download with low stock, expiry and waste summaries.
 - [x] Replaced placeholder Terms and Privacy pages with launch-review draft copy.
 - [x] Hardened `/register` for real owner account creation with validation, business name and clear errors.
+- [x] Added controlled `admin:create` operator script for production admin account creation.
 - [x] Added smoke coverage for registering a new owner account and logging in.
 - [x] Added smoke-test notes for seeded demo accounts.
 - [x] Added focused Playwright tests for protected APIs and role boundaries.
@@ -53,7 +54,7 @@ The remaining work is split into two tracks:
 
 - [ ] Replace Terms and Privacy placeholders with final legal company details and get legal sign-off.
 - [ ] Create the first real owner account in production through `/register`; do not run demo seed in production.
-- [ ] Create any production admin account through a controlled operational process.
+- [ ] Run `npm run admin:create` against production when the real admin email/password are available.
 - [ ] Complete one end-to-end production billing test in Stripe live mode or a launch-equivalent staging environment.
 - [ ] Add team invite/user management for business owners.
 - [ ] Add deeper tenant-isolation tests for stock, suppliers, waste, reorder lists and reports.

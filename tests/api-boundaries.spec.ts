@@ -5,11 +5,21 @@ const staff = { email: 'staff@stocksense.demo', password: 'Password123!' }
 const admin = { email: 'admin@stocksense.demo', password: 'Password123!' }
 
 async function login(page: Page, account: { email: string; password: string }, callbackUrl = '/dashboard') {
-  await page.goto(`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`)
-  await page.locator('input').nth(0).fill(account.email)
-  await page.locator('input').nth(1).fill(account.password)
-  await page.getByRole('button', { name: 'Sign in' }).click()
-  await page.waitForURL(`**${callbackUrl}`)
+  await page.context().clearCookies()
+  const csrf = await page.request.get('/api/auth/csrf')
+  expect(csrf.status()).toBe(200)
+  const { csrfToken } = await csrf.json()
+  const auth = await page.request.post('/api/auth/callback/credentials?json=true', {
+    form: {
+      csrfToken,
+      email: account.email,
+      password: account.password,
+      callbackUrl,
+      json: 'true',
+    },
+  })
+  expect(auth.status()).toBe(200)
+  await page.goto(callbackUrl)
 }
 
 test.describe('protected API boundaries', () => {
@@ -46,9 +56,12 @@ test.describe('protected API boundaries', () => {
     await expect(await stock.json()).toMatchObject({ error: 'Business context required' })
   })
 
-  test('prevents staff from mutating owner-only supplier records', async ({ page }) => {
-    await login(page, owner)
-    const createSupplier = await page.request.post('/api/suppliers', {
+  test('prevents staff from mutating owner-only supplier records', async ({ browser }) => {
+    const ownerPage = await browser.newPage()
+    const staffPage = await browser.newPage()
+
+    await login(ownerPage, owner)
+    const createSupplier = await ownerPage.request.post('/api/suppliers', {
       data: {
         name: `API Boundary Supplier ${Date.now()}`,
         contactName: 'QA Contact',
@@ -58,8 +71,8 @@ test.describe('protected API boundaries', () => {
     expect(createSupplier.status()).toBe(201)
     const supplier = await createSupplier.json()
 
-    await login(page, staff)
-    const updateAsStaff = await page.request.put(`/api/suppliers/${supplier.id}`, {
+    await login(staffPage, staff)
+    const updateAsStaff = await staffPage.request.put(`/api/suppliers/${supplier.id}`, {
       data: {
         name: `${supplier.name} Staff Edit`,
       },
@@ -67,5 +80,8 @@ test.describe('protected API boundaries', () => {
 
     expect(updateAsStaff.status()).toBe(403)
     await expect(await updateAsStaff.json()).toMatchObject({ error: 'Forbidden' })
+
+    await ownerPage.close()
+    await staffPage.close()
   })
 })

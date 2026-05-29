@@ -5,6 +5,7 @@ const staff = { email: 'staff@stocksense.demo', password: 'Password123!' }
 const admin = { email: 'admin@stocksense.demo', password: 'Password123!' }
 
 async function login(page: Page, account: { email: string; password: string }, callbackUrl = '/dashboard') {
+  await page.context().clearCookies()
   await page.goto(`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`)
   await page.locator('input').nth(0).fill(account.email)
   await page.locator('input').nth(1).fill(account.password)

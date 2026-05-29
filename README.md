@@ -23,6 +23,7 @@ Production account creation
 - Use `/register` to create the first real business owner account.
 - Do not run `npm run seed` against production unless you intentionally want demo data.
 - Demo users use `@stocksense.demo` addresses and must not be used for real customers.
+- Create production admin accounts through the controlled `npm run admin:create` operator script.
 
 Local setup
 1. Install dependencies
@@ -69,6 +70,20 @@ Do not run `npm run prisma:migrate` against production. It is a local developmen
 Production environment check
 - Copy `.env.production.example` into your hosting platform's production environment settings.
 - Run `npm run env:check` in a production-like environment to confirm required values are present.
+
+Controlled admin creation
+- Set `DATABASE_URL` to the target production database.
+- Run the admin creation script with one-time environment variables:
+
+```powershell
+$env:ADMIN_EMAIL='admin@example.com'
+$env:ADMIN_NAME='Platform Admin'
+$env:ADMIN_PASSWORD='Use-a-long-unique-password-123!'
+$env:CONFIRM_CREATE_ADMIN='CREATE_ADMIN'
+npm run admin:create
+```
+
+- Do not use `@stocksense.demo` addresses for production admin users.
 
 Stripe
 - This repo includes placeholder API routes for creating a Checkout session and a webhook receiver. Configure Stripe keys in `.env` when ready.

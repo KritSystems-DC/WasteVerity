@@ -1,0 +1,483 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// AUTH & USERS
+// ============================================
+
+model User {
+  id                    String     @id @default(cuid())
+  name                  String
+  email                 String     @unique
+  emailVerified         DateTime?
+  passwordHash          String?
+  role                  UserRole   @default(STAFF)
+  businessId            String?
+  business              Business?  @relation(fields: [businessId], references: [id], onDelete: SetNull)
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime   @updatedAt
+
+  // Relationships
+  stockMovements        StockMovement[]
+  priceHistoryChanges   PriceHistory[] @relation("changedByUser")
+  staffRequests         StaffRequest[] @relation("submittedByUser")
+  staffRequestReviews   StaffRequest[] @relation("reviewedByUser")
+  reorderListsCreated   ReorderList[] @relation("createdByUser")
+  wasteRecords          WasteRecord[]
+  adminNotes            AdminNote[] @relation("adminUser")
+  targetAdminNotes      AdminNote[] @relation("targetUser")
+
+  @@index([businessId])
+}
+
+enum UserRole {
+  OWNER
+  STAFF
+  ADMIN
+}
+
+// ============================================
+// BUSINESS
+// ============================================
+
+model Business {
+  id                    String     @id @default(cuid())
+  name                  String
+  type                  String
+  ownerId               String
+  email                 String
+  phone                 String?
+  country               String?
+  currency              String     @default("GBP")
+  timezone              String     @default("Europe/London")
+  status                BusinessStatus @default(ACTIVE)
+  setupCompleted        Boolean    @default(false)
+  defaultUnitPreference String     @default("item")
+  lowStockAlertEnabled  Boolean    @default(true)
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime   @updatedAt
+
+  // Relationships
+  users                 User[]
+  stockItems            StockItem[]
+  suppliers             Supplier[]
+  stockMovements        StockMovement[]
+  lowStockAlerts        LowStockAlert[]
+  expiryAlerts          ExpiryAlert[]
+  wasteRecords          WasteRecord[]
+  reorderLists          ReorderList[]
+  staffRequests         StaffRequest[]
+  automationLogs        AutomationLog[]
+  subscriptions         Subscription[]
+  priceHistories        PriceHistory[]
+  adminNotes            AdminNote[]
+  integrations          Integration[]
+
+  @@index([ownerId])
+  @@index([status])
+}
+
+enum BusinessStatus {
+  ACTIVE
+  DISABLED
+  SETUP_REQUIRED
+}
+
+// ============================================
+// SUBSCRIPTIONS
+// ============================================
+
+model Subscription {
+  id                    String     @id @default(cuid())
+  businessId            String     @unique
+  business              Business   @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  stripeCustomerId      String     @unique
+  stripeSubscriptionId  String?    @unique
+  plan                  SubscriptionPlan @default(STARTER)
+  status                SubscriptionStatus @default(TRIALING)
+  currentPeriodStart    DateTime?
+  currentPeriodEnd      DateTime?
+  cancelAtPeriodEnd     Boolean    @default(false)
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime   @updatedAt
+
+  @@index([status])
+}
+
+enum SubscriptionPlan {
+  STARTER
+  PRO
+  BUSINESS
+}
+
+enum SubscriptionStatus {
+  TRIALING
+  ACTIVE
+  PAST_DUE
+  CANCELLED
+  UNPAID
+  INCOMPLETE
+}
+
+// ============================================
+// STOCK ITEMS
+// ============================================
+
+model StockItem {
+  id                    String     @id @default(cuid())
+  businessId            String
+  business              Business   @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  supplierId            String?
+  supplier              Supplier?  @relation(fields: [supplierId], references: [id], onDelete: SetNull)
+  name                  String
+  sku                   String?
+  category              String?
+  currentQuantity       Int        @default(0)
+  minimumQuantity       Int        @default(5)
+  reorderAmount         Int        @default(10)
+  unit                  String     @default("item")
+  costPerUnit           Decimal    @default(0) @db.Decimal(10, 2)
+  sellingPrice          Decimal?   @db.Decimal(10, 2)
+  expiryDate            DateTime?
+  location              String?
+  notes                 String?
+  status                StockStatus @default(ACTIVE)
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime   @updatedAt
+
+  // Relationships
+  movements             StockMovement[]
+  lowStockAlerts        LowStockAlert[]
+  expiryAlerts          ExpiryAlert[]
+  wasteRecords          WasteRecord[]
+  reorderListItems      ReorderListItem[]
+  staffRequests         StaffRequest[]
+  priceHistories        PriceHistory[]
+
+  @@unique([businessId, name])
+  @@index([businessId])
+  @@index([supplierId])
+  @@index([status])
+  @@index([currentQuantity])
+  @@index([expiryDate])
+}
+
+enum StockStatus {
+  ACTIVE
+  ARCHIVED
+}
+
+// ============================================
+// STOCK MOVEMENTS
+// ============================================
+
+model StockMovement {
+  id                    String     @id @default(cuid())
+  businessId            String
+  business              Business   @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  stockItemId           String
+  stockItem             StockItem  @relation(fields: [stockItemId], references: [id], onDelete: Cascade)
+  userId                String
+  user                  User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type                  MovementType
+  quantityChange        Int
+  previousQuantity      Int
+  newQuantity           Int
+  reason                String?
+  createdAt             DateTime   @default(now())
+
+  @@index([businessId])
+  @@index([stockItemId])
+  @@index([userId])
+  @@index([type])
+}
+
+enum MovementType {
+  MANUAL_ADJUSTMENT
+  STOCK_USED
+  RESTOCKED
+  WASTED
+  EXPIRED
+  CORRECTION
+  RETURNED
+}
+
+// ============================================
+// SUPPLIERS
+// ============================================
+
+model Supplier {
+  id                    String     @id @default(cuid())
+  businessId            String
+  business              Business   @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  name                  String
+  contactName           String?
+  email                 String?
+  phone                 String?
+  website               String?
+  address               String?
+  notes                 String?
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime   @updatedAt
+
+  // Relationships
+  stockItems            StockItem[]
+  priceHistories        PriceHistory[]
+  reorderListItems      ReorderListItem[]
+
+  @@unique([businessId, name])
+  @@index([businessId])
+}
+
+// ============================================
+// PRICE HISTORY
+// ============================================
+
+model PriceHistory {
+  id                    String     @id @default(cuid())
+  businessId            String
+  business              Business   @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  stockItemId           String
+  stockItem             StockItem  @relation(fields: [stockItemId], references: [id], onDelete: Cascade)
+  supplierId            String?
+  supplier              Supplier?  @relation(fields: [supplierId], references: [id], onDelete: SetNull)
+  oldPrice              Decimal    @db.Decimal(10, 2)
+  newPrice              Decimal    @db.Decimal(10, 2)
+  changedByUserId       String
+  changedByUser         User       @relation("changedByUser", fields: [changedByUserId], references: [id], onDelete: Cascade)
+  reason                String?
+  createdAt             DateTime   @default(now())
+
+  @@index([businessId])
+  @@index([stockItemId])
+  @@index([supplierId])
+}
+
+// ============================================
+// ALERTS
+// ============================================
+
+model LowStockAlert {
+  id                    String     @id @default(cuid())
+  businessId            String
+  business              Business   @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  stockItemId           String
+  stockItem             StockItem  @relation(fields: [stockItemId], references: [id], onDelete: Cascade)
+  message               String
+  status                AlertStatus @default(ACTIVE)
+  createdAt             DateTime   @default(now())
+  resolvedAt            DateTime?
+
+  @@unique([businessId, stockItemId, status])
+  @@index([businessId])
+  @@index([status])
+}
+
+model ExpiryAlert {
+  id                    String     @id @default(cuid())
+  businessId            String
+  business              Business   @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  stockItemId           String
+  stockItem             StockItem  @relation(fields: [stockItemId], references: [id], onDelete: Cascade)
+  expiryDate            DateTime
+  status                AlertStatus @default(ACTIVE)
+  createdAt             DateTime   @default(now())
+  resolvedAt            DateTime?
+
+  @@index([businessId])
+  @@index([status])
+  @@index([expiryDate])
+}
+
+enum AlertStatus {
+  ACTIVE
+  RESOLVED
+  IGNORED
+}
+
+// ============================================
+// WASTE TRACKING
+// ============================================
+
+model WasteRecord {
+  id                    String     @id @default(cuid())
+  businessId            String
+  business              Business   @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  stockItemId           String
+  stockItem             StockItem  @relation(fields: [stockItemId], references: [id], onDelete: Cascade)
+  userId                String
+  user                  User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quantity              Int
+  estimatedCostLost     Decimal    @db.Decimal(10, 2)
+  reason                String?
+  createdAt             DateTime   @default(now())
+
+  @@index([businessId])
+  @@index([stockItemId])
+}
+
+// ============================================
+// REORDER LISTS
+// ============================================
+
+model ReorderList {
+  id                    String     @id @default(cuid())
+  businessId            String
+  business              Business   @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  status                ReorderStatus @default(DRAFT)
+  title                 String
+  estimatedTotalCost    Decimal    @db.Decimal(10, 2)
+  createdByUserId       String
+  createdByUser         User       @relation("createdByUser", fields: [createdByUserId], references: [id], onDelete: Cascade)
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime   @updatedAt
+
+  // Relationships
+  items                 ReorderListItem[]
+
+  @@index([businessId])
+  @@index([status])
+}
+
+model ReorderListItem {
+  id                    String     @id @default(cuid())
+  reorderListId         String
+  reorderList           ReorderList @relation(fields: [reorderListId], references: [id], onDelete: Cascade)
+  stockItemId           String
+  stockItem             StockItem  @relation(fields: [stockItemId], references: [id], onDelete: Cascade)
+  supplierId            String?
+  supplier              Supplier?  @relation(fields: [supplierId], references: [id], onDelete: SetNull)
+  quantity              Int
+  unit                  String
+  estimatedCost         Decimal    @db.Decimal(10, 2)
+  status                ReorderItemStatus @default(PENDING)
+  createdAt             DateTime   @default(now())
+
+  @@index([reorderListId])
+  @@index([stockItemId])
+}
+
+enum ReorderStatus {
+  DRAFT
+  READY
+  ORDERED
+  PARTIALLY_ORDERED
+  COMPLETED
+  CANCELLED
+}
+
+enum ReorderItemStatus {
+  PENDING
+  ORDERED
+  RECEIVED
+  REMOVED
+}
+
+// ============================================
+// STAFF REQUESTS
+// ============================================
+
+model StaffRequest {
+  id                    String     @id @default(cuid())
+  businessId            String
+  business              Business   @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  stockItemId           String?
+  stockItem             StockItem? @relation(fields: [stockItemId], references: [id], onDelete: SetNull)
+  itemName              String
+  requestedQuantity     Int
+  reason                String?
+  urgency               RequestUrgency @default(NORMAL)
+  status                RequestStatus @default(PENDING)
+  submittedByUserId     String
+  submittedByUser       User       @relation("submittedByUser", fields: [submittedByUserId], references: [id], onDelete: Cascade)
+  reviewedByUserId      String?
+  reviewedByUser        User?      @relation("reviewedByUser", fields: [reviewedByUserId], references: [id], onDelete: SetNull)
+  createdAt             DateTime   @default(now())
+  reviewedAt            DateTime?
+
+  @@index([businessId])
+  @@index([status])
+}
+
+enum RequestUrgency {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  ADDED_TO_REORDER
+}
+
+// ============================================
+// AUTOMATION & LOGS
+// ============================================
+
+model AutomationLog {
+  id                    String     @id @default(cuid())
+  businessId            String?
+  business              Business?  @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  type                  String
+  title                 String
+  message               String
+  metadata              Json?
+  status                LogStatus  @default(SUCCESS)
+  createdAt             DateTime   @default(now())
+
+  @@index([businessId])
+  @@index([type])
+  @@index([status])
+}
+
+enum LogStatus {
+  SUCCESS
+  FAILED
+  INFO
+}
+
+// ============================================
+// ADMIN
+// ============================================
+
+model AdminNote {
+  id                    String     @id @default(cuid())
+  businessId            String?
+  business              Business?  @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  userId                String?
+  user                  User?      @relation("targetUser", fields: [userId], references: [id], onDelete: Cascade)
+  adminUserId           String
+  adminUser             User       @relation("adminUser", fields: [adminUserId], references: [id], onDelete: Cascade)
+  note                  String
+  createdAt             DateTime   @default(now())
+
+  @@index([businessId])
+  @@index([userId])
+}
+
+// ============================================
+// INTEGRATIONS
+// ============================================
+
+model Integration {
+  id                    String     @id @default(cuid())
+  businessId            String
+  business              Business   @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  type                  String
+  status                String     @default("inactive")
+  config                Json?
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime   @updatedAt
+
+  @@unique([businessId, type])
+  @@index([businessId])
+}

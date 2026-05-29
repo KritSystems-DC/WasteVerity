@@ -1,4 +1,4 @@
-# StockSense MVP Status
+# HealthServe MVP Status
 
 Last refreshed: 2026-05-29
 
@@ -44,11 +44,11 @@ The remaining work is split into two tracks:
 ### Current Local Setup
 
 - Local app: `http://localhost:3000`
-- Demo database: Docker container `stocksense-postgres`
-- Local database URL: `postgresql://postgres:postgres@127.0.0.1:5432/stocksense?schema=public`
-- Demo owner: `owner@stocksense.demo` / `Password123!`
-- Demo staff: `staff@stocksense.demo` / `Password123!`
-- Demo admin: `admin@stocksense.demo` / `Password123!`
+- Demo database: Docker container `healthserve-postgres`
+- Local database URL: `postgresql://postgres:postgres@127.0.0.1:5432/healthserve?schema=public`
+- Demo owner: `owner@healthserve.demo` / `Password123!`
+- Demo staff: `staff@healthserve.demo` / `Password123!`
+- Demo admin: `admin@healthserve.demo` / `Password123!`
 
 ### Remaining Local App Work
 
@@ -92,7 +92,7 @@ The remaining work is split into two tracks:
   - `4258e35` Harden production owner registration
   - `7be7584` Draft public terms and privacy pages
   - `04078f1` Add production Stripe env validation
-  - `e0a9075` Complete StockSense MVP readiness pass
+  - `e0a9075` Complete HealthServe MVP readiness pass
 
 ### Remaining Git / Deployment Work
 

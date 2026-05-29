@@ -14,7 +14,7 @@ const purposes = [
     detail: 'Create accounts, authenticate users, manage stock workflows, provide reports and operate subscriptions.',
   },
   {
-    purpose: 'Secure and maintain StockSense',
+    purpose: 'Secure and maintain HealthServe',
     basis: 'Legitimate interests',
     detail: 'Prevent misuse, debug errors, audit access, monitor reliability and protect customer data.',
   },
@@ -49,7 +49,7 @@ export default function Privacy() {
     <main className="min-h-screen bg-slate-50 px-6 py-10">
       <article className="mx-auto max-w-4xl rounded border bg-white p-6 shadow-sm sm:p-8">
         <header className="border-b pb-6">
-          <p className="text-sm font-medium text-accent">StockSense legal</p>
+          <p className="text-sm font-medium text-accent">HealthServe legal</p>
           <h1 className="mt-2 text-3xl font-bold text-gray-950">Privacy Notice</h1>
           <p className="mt-3 text-gray-600">Last updated: 29 May 2026</p>
           <p className="mt-4 text-sm text-gray-600">
@@ -61,7 +61,7 @@ export default function Privacy() {
           <section>
             <h2 className="text-xl font-semibold text-gray-950">Who We Are</h2>
             <p className="mt-3 text-gray-700">
-              StockSense is operated by [Legal company name]. Contact us at [privacy email]. Registered address: [registered business address].
+              HealthServe is operated by [Legal company name]. Contact us at [privacy email]. Registered address: [registered business address].
             </p>
           </section>
 
@@ -101,7 +101,7 @@ export default function Privacy() {
           <section>
             <h2 className="text-xl font-semibold text-gray-950">Who We Share Data With</h2>
             <div className="mt-3 space-y-3 text-gray-700">
-              <p>We share personal data only where needed to operate StockSense, meet legal duties or protect the service.</p>
+              <p>We share personal data only where needed to operate HealthServe, meet legal duties or protect the service.</p>
               <p>Processors may include hosting providers, database providers, authentication/session providers, Stripe for billing, email or notification providers, analytics/error monitoring providers and professional advisers.</p>
               <p>We do not sell personal data.</p>
             </div>
@@ -117,7 +117,7 @@ export default function Privacy() {
           <section>
             <h2 className="text-xl font-semibold text-gray-950">Retention</h2>
             <p className="mt-3 text-gray-700">
-              We keep personal data for as long as needed to provide StockSense, meet legal and accounting obligations, resolve disputes and maintain security records. Business stock data is kept while the account is active unless deleted earlier by an authorised user or as required by law.
+              We keep personal data for as long as needed to provide HealthServe, meet legal and accounting obligations, resolve disputes and maintain security records. Business stock data is kept while the account is active unless deleted earlier by an authorised user or as required by law.
             </p>
           </section>
 
@@ -136,14 +136,14 @@ export default function Privacy() {
           <section>
             <h2 className="text-xl font-semibold text-gray-950">Cookies and Similar Technologies</h2>
             <p className="mt-3 text-gray-700">
-              StockSense uses essential cookies or similar storage for login sessions, security and service operation. If analytics or marketing cookies are added later, this notice and any cookie controls should be updated before they are used.
+              HealthServe uses essential cookies or similar storage for login sessions, security and service operation. If analytics or marketing cookies are added later, this notice and any cookie controls should be updated before they are used.
             </p>
           </section>
 
           <section>
             <h2 className="text-xl font-semibold text-gray-950">Changes to This Notice</h2>
             <p className="mt-3 text-gray-700">
-              We may update this Privacy Notice when StockSense, our providers or legal requirements change. If changes are material, we will take reasonable steps to bring them to your attention.
+              We may update this Privacy Notice when HealthServe, our providers or legal requirements change. If changes are material, we will take reasonable steps to bring them to your attention.
             </p>
           </section>
 

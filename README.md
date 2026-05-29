@@ -1,4 +1,4 @@
-# StockSense
+# HealthServe
 
 Simple stock control for small businesses.
 
@@ -15,14 +15,14 @@ What this repo contains
 - Basic Next.js pages and API route skeletons
 
 Demo login
-- Owner: owner@stocksense.demo / Password123!
-- Staff: staff@stocksense.demo / Password123!
-- Admin: admin@stocksense.demo / Password123!
+- Owner: owner@healthserve.demo / Password123!
+- Staff: staff@healthserve.demo / Password123!
+- Admin: admin@healthserve.demo / Password123!
 
 Production account creation
 - Use `/register` to create the first real business owner account.
 - Do not run `npm run seed` against production unless you intentionally want demo data.
-- Demo users use `@stocksense.demo` addresses and must not be used for real customers.
+- Demo users use `@healthserve.demo` addresses and must not be used for real customers.
 - Create production admin accounts through the controlled `npm run admin:create` operator script.
 
 Local setup
@@ -83,7 +83,7 @@ $env:CONFIRM_CREATE_ADMIN='CREATE_ADMIN'
 npm run admin:create
 ```
 
-- Do not use `@stocksense.demo` addresses for production admin users.
+- Do not use `@healthserve.demo` addresses for production admin users.
 
 Stripe
 - This repo includes placeholder API routes for creating a Checkout session and a webhook receiver. Configure Stripe keys in `.env` when ready.

@@ -55,7 +55,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ children }) => {
       >
         <div className="space-y-6">
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold text-blue-600">StockSense</h1>
+            <h1 className="text-2xl font-bold text-blue-600">HealthServe</h1>
             <button
               onClick={() => setOpen(false)}
               className="md:hidden text-gray-500 hover:text-gray-700"

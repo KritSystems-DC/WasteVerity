@@ -69,7 +69,7 @@ export default function Setup() {
       <div className="space-y-6">
         <div>
           <h1 className="text-2xl font-bold">Business setup</h1>
-          <p className="mt-2 text-gray-600">Complete your business profile so StockSense can track your stock accurately.</p>
+          <p className="mt-2 text-gray-600">Complete your business profile so HealthServe can track your stock accurately.</p>
         </div>
 
         {loading ? (

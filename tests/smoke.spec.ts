@@ -1,8 +1,8 @@
 import { expect, test, type Page } from '@playwright/test'
 
-const owner = { email: 'owner@stocksense.demo', password: 'Password123!' }
-const staff = { email: 'staff@stocksense.demo', password: 'Password123!' }
-const admin = { email: 'admin@stocksense.demo', password: 'Password123!' }
+const owner = { email: 'owner@healthserve.demo', password: 'Password123!' }
+const staff = { email: 'staff@healthserve.demo', password: 'Password123!' }
+const admin = { email: 'admin@healthserve.demo', password: 'Password123!' }
 
 async function login(page: Page, account: { email: string; password: string }, callbackUrl = '/dashboard') {
   await page.context().clearCookies()
@@ -20,7 +20,7 @@ async function expectHeading(page: Page, name: string) {
 test.describe('authentication and role access', () => {
   test('registers a new owner account and business', async ({ page }) => {
     const timestamp = Date.now()
-    const email = `owner-${timestamp}@stocksense.test`
+    const email = `owner-${timestamp}@healthserve.test`
     const businessName = `QA Business ${timestamp}`
 
     await page.goto('/register')

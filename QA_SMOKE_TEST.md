@@ -1,4 +1,4 @@
-# StockSense Smoke Test
+# HealthServe Smoke Test
 
 Use this after running migrations and seeding demo data.
 
@@ -12,9 +12,9 @@ Open `http://localhost:3000`.
 
 ## Demo Accounts
 
-- Owner: `owner@stocksense.demo` / `Password123!`
-- Staff: `staff@stocksense.demo` / `Password123!`
-- Admin: `admin@stocksense.demo` / `Password123!`
+- Owner: `owner@healthserve.demo` / `Password123!`
+- Staff: `staff@healthserve.demo` / `Password123!`
+- Admin: `admin@healthserve.demo` / `Password123!`
 
 ## Owner Flow
 

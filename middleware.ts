@@ -6,9 +6,9 @@ export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
   const { pathname } = request.nextUrl;
   const redirectToLogin = () => {
-    const loginUrl = new URL("/login", request.url);
-    loginUrl.searchParams.set("callbackUrl", request.nextUrl.pathname + request.nextUrl.search);
-    return NextResponse.redirect(loginUrl);
+    const callback = encodeURIComponent(request.nextUrl.pathname + request.nextUrl.search);
+    const loginPath = `/login?callbackUrl=${callback}`;
+    return NextResponse.redirect(loginPath);
   };
 
   // Public paths

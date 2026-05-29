@@ -1,6 +1,6 @@
-# StockSense Production Checklist
+# HealthServe Production Checklist
 
-Use this before deploying a live StockSense instance.
+Use this before deploying a live HealthServe instance.
 
 ## Environment
 
@@ -43,9 +43,9 @@ npm run prisma:status
 - [ ] Do not run `npm run prisma:migrate` or `prisma migrate dev` against production.
 - [ ] Do not run `npm run seed` against production unless you intentionally want demo data and demo users.
 - [ ] Replace or disable seeded demo accounts before launch:
-  - `owner@stocksense.demo`
-  - `staff@stocksense.demo`
-  - `admin@stocksense.demo`
+  - `owner@healthserve.demo`
+  - `staff@healthserve.demo`
+  - `admin@healthserve.demo`
 
 ## Authentication
 

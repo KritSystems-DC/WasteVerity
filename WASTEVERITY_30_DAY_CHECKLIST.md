@@ -5,7 +5,7 @@ This checklist turns the WasteVerity domain, deployment, and outreach plan into 
 ## Week 1: Foundation and Launch
 
 ### Day 1: Domain and Positioning
-- [ ] Choose the final brand domain, preferably `wasteverity.co`.
+- [x] Choose the final brand domain: `wasteverity.co.uk`.
 - [ ] Register the domain for 1-3 years.
 - [ ] Enable auto-renewal and WHOIS privacy.
 - [ ] Write the one-line positioning statement.
@@ -27,7 +27,7 @@ Project:
 ### Day 3: DNS and Email
 - [ ] Add the domain to Vercel.
 - [ ] Configure DNS records.
-- [ ] Create `hello@wasteverity.co`.
+- [ ] Create `hello@wasteverity.co.uk`.
 - [ ] Set SPF, DKIM, and DMARC records if using a custom email provider.
 - [ ] Send test emails to Gmail and Outlook accounts.
 

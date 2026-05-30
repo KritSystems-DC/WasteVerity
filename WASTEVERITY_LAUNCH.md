@@ -6,10 +6,10 @@ WasteVerity should launch as a focused healthcare food service platform, not a g
 
 Preferred options:
 
-1. `wasteverity.co` - short, modern, and suitable for SaaS.
-2. `wasteverity.uk` - strong if the first market is UK care homes and hospitals.
-3. `getwasteverity.com` - useful if the preferred domain is unavailable.
-4. `wasteverity.health` - premium and niche-specific, but less familiar.
+1. `wasteverity.co.uk` - selected final brand domain for the UK launch.
+2. `wasteverity.co` - useful as a defensive redirect if available.
+3. `wasteverity.uk` - useful as a defensive redirect if available.
+4. `getwasteverity.com` - useful if an international fallback is needed.
 
 Registration steps:
 
@@ -48,7 +48,7 @@ DNS setup for Vercel:
 - [ ] Environment variables configured.
 - [ ] Prisma migrations deployed.
 - [ ] Demo users disabled or clearly isolated.
-- [ ] `hello@wasteverity.co` created.
+- [ ] `hello@wasteverity.co.uk` created.
 - [ ] SPF, DKIM, and DMARC records configured.
 - [ ] Calendly demo link created.
 - [ ] Google Analytics or another analytics tool installed.
@@ -67,9 +67,9 @@ Recommended mailbox options:
 
 Create these addresses:
 
-- `hello@wasteverity.co` for outbound and demo requests.
-- `support@wasteverity.co` for customer support.
-- `billing@wasteverity.co` for payment and invoice messages.
+- `hello@wasteverity.co.uk` for outbound and demo requests.
+- `support@wasteverity.co.uk` for customer support.
+- `billing@wasteverity.co.uk` for payment and invoice messages.
 
 Deliverability setup:
 

@@ -34,7 +34,7 @@ Would a 20-minute walkthrough be useful this week?
 
 [Your Name]
 [Your Phone]
-https://wasteverity.co
+https://wasteverity.co.uk
 ```
 
 ## Email 2: Value Follow-Up

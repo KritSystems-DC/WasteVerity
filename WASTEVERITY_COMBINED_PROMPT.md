@@ -181,7 +181,7 @@ Contact page requirements:
   - Message
 - Include CTA copy:
   "Tell us what is happening in your kitchen. We will reply with the best next step."
-- Include placeholder contact email: hello@wasteverity.co
+- Include placeholder contact email: hello@wasteverity.co.uk
 
 SEO requirements:
 - Page title: WasteVerity | Healthcare Food Service Improvement

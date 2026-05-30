@@ -140,6 +140,7 @@ The repo includes placeholder API routes for creating a Stripe Checkout session 
 ## Launch Documents
 
 - `WASTEVERITY_LAUNCH.md` - domain, deployment, and launch setup
+- `WASTEVERITY_POSITIONING.md` - audience, pain points, offer, and proof points
 - `WASTEVERITY_OUTREACH.md` - cold email, call script, and prospecting notes
 - `WASTEVERITY_COMBINED_PROMPT.md` - master prompt for generating WasteVerity GTM assets
 - `WASTEVERITY_30_DAY_CHECKLIST.md` - daily launch execution checklist

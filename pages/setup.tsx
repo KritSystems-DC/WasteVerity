@@ -69,7 +69,7 @@ export default function Setup() {
       <div className="space-y-6">
         <div>
           <h1 className="text-2xl font-bold">Business setup</h1>
-          <p className="mt-2 text-gray-600">Complete your business profile so HealthServe can track your stock accurately.</p>
+          <p className="mt-2 text-gray-600">Complete your facility profile so HealthServe can track inventory and kitchen controls accurately.</p>
         </div>
 
         {loading ? (
@@ -165,7 +165,7 @@ export default function Setup() {
                 onChange={(e) => setForm({ ...form, lowStockAlertEnabled: e.target.checked })}
                 className="h-4 w-4"
               />
-              <span className="text-sm text-gray-700">Enable low stock alerts</span>
+              <span className="text-sm text-gray-700">Enable low-inventory alerts</span>
             </label>
             <div className="flex items-center gap-3">
               <button type="submit" className="bg-accent text-white px-4 py-2 rounded">Save setup</button>

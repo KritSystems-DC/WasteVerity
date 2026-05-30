@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getSession, useSession } from 'next-auth/react'
 import { GetServerSideProps } from 'next'
+import Link from 'next/link'
 import { AppShell } from '@/components/AppShell'
 import { formatCurrency, isExpiringSoon, isExpired } from '@/lib/utils'
 
@@ -45,16 +46,16 @@ export default function Dashboard() {
       <div className="space-y-6">
         <div>
           <h1 className="text-2xl font-bold">Dashboard</h1>
-          <p className="mt-2 text-gray-600">{session?.user?.name ? `Welcome back, ${session.user.name}` : 'Manage your stock and alerts in one place.'}</p>
+          <p className="mt-2 text-gray-600">{session?.user?.name ? `Welcome back, ${session.user.name}` : 'Manage inventory, waste, and alerts in one place.'}</p>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-3">
           <div className="p-4 border rounded bg-white">
-            <p className="text-sm text-gray-500">Active stock items</p>
+            <p className="text-sm text-gray-500">Active inventory items</p>
             <p className="mt-2 text-3xl font-semibold">{items.length}</p>
           </div>
           <div className="p-4 border rounded bg-white">
-            <p className="text-sm text-gray-500">Low stock items</p>
+            <p className="text-sm text-gray-500">Low-inventory items</p>
             <p className="mt-2 text-3xl font-semibold">{lowStockCount}</p>
           </div>
           <div className="p-4 border rounded bg-white">
@@ -65,12 +66,24 @@ export default function Dashboard() {
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="p-4 border rounded bg-white">
-            <p className="text-sm text-gray-500">Estimated stock value</p>
+            <p className="text-sm text-gray-500">Estimated inventory value</p>
             <p className="mt-2 text-2xl font-semibold">{formatCurrency(stockValue)}</p>
           </div>
           <div className="p-4 border rounded bg-white">
             <p className="text-sm text-gray-500">Pending staff requests</p>
             <p className="mt-2 text-2xl font-semibold">{requests}</p>
+          </div>
+        </div>
+
+        <div className="rounded border bg-white p-5">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 className="text-lg font-semibold">Compliance templates</h2>
+              <p className="mt-1 text-sm text-gray-600">HACCP checks, allergen records, temperature logs, incidents, staff training, and audit evidence.</p>
+            </div>
+            <Link href="/compliance" className="rounded bg-accent px-4 py-2 text-center text-sm font-medium text-white">
+              Open templates
+            </Link>
           </div>
         </div>
       </div>

@@ -2,8 +2,8 @@ const sections = [
   {
     title: '1. Who These Terms Are For',
     body: [
-      'These Terms apply when you access or use HealthServe, a stock control and reporting service for small businesses.',
-      'If you use HealthServe on behalf of a business, you confirm that you have authority to accept these Terms for that business.',
+      'These Terms apply when you access or use HealthServe, a healthcare food service operations platform for regulated kitchens and care providers.',
+      'If you use HealthServe on behalf of a business, facility or organisation, you confirm that you have authority to accept these Terms for that organisation.',
     ],
   },
   {
@@ -17,9 +17,9 @@ const sections = [
   {
     title: '3. Using HealthServe',
     body: [
-      'You may use HealthServe to manage stock items, suppliers, reorder lists, waste records, staff requests, reports and related business data.',
+      'You may use HealthServe to manage inventory items, suppliers, reorder lists, waste records, staff requests, compliance records, reports and related operational data.',
       'You must not misuse the service, attempt to bypass access controls, interfere with the service, upload unlawful content, or use HealthServe in a way that harms other users or systems.',
-      'You are responsible for checking the accuracy of stock, cost, expiry and reorder information before relying on it for business decisions.',
+      'You are responsible for checking the accuracy of inventory, cost, expiry, compliance and reorder information before relying on it for operational decisions.',
     ],
   },
   {
@@ -48,8 +48,8 @@ const sections = [
   {
     title: '7. Disclaimers',
     body: [
-      'HealthServe provides operational stock information and reports. It is not accounting, tax, food safety, legal or professional advice.',
-      'You remain responsible for stock checks, compliance obligations, supplier decisions, pricing decisions and business records.',
+      'HealthServe provides operational food service information and reports. It is not accounting, tax, food safety, legal, clinical or professional advice.',
+      'You remain responsible for physical checks, compliance obligations, supplier decisions, pricing decisions and organisational records.',
     ],
   },
   {

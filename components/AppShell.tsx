@@ -15,10 +15,11 @@ export function AppShell({ children }: AppShellProps) {
     <div className="min-h-screen bg-slate-50">
       <Sidebar>
         <NavLink href="/dashboard">Dashboard</NavLink>
-        <NavLink href="/stock">Stock</NavLink>
+        <NavLink href="/stock">Inventory</NavLink>
         <NavLink href="/suppliers">Suppliers</NavLink>
         <NavLink href="/reorder">Reorder</NavLink>
         <NavLink href="/expiry">Expiry</NavLink>
+        <NavLink href="/compliance">Compliance</NavLink>
         <NavLink href="/staff-requests">Staff requests</NavLink>
         <NavLink href="/reports">Reports</NavLink>
         <NavLink href="/automation-logs">Automation logs</NavLink>

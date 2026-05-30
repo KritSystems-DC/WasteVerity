@@ -1,8 +1,8 @@
 const dataTypes = [
   'Account details such as name, email address, role and login information.',
   'Business details such as business name, type, phone number, country, currency and setup preferences.',
-  'Stock and supplier data such as stock item names, quantities, costs, expiry dates, reorder settings, supplier contacts and notes.',
-  'Operational records such as stock movements, staff requests, reorder lists, waste records, automation logs and audit information.',
+  'Inventory and supplier data such as item names, quantities, costs, expiry dates, reorder settings, supplier contacts and notes.',
+  'Operational records such as inventory movements, staff requests, reorder lists, waste records, automation logs and audit information.',
   'Billing data such as plan, subscription status, Stripe customer identifiers and checkout metadata.',
   'Technical data such as IP address, browser information, session data, logs and security events.',
 ]
@@ -11,7 +11,7 @@ const purposes = [
   {
     purpose: 'Provide the service',
     basis: 'Contract',
-    detail: 'Create accounts, authenticate users, manage stock workflows, provide reports and operate subscriptions.',
+    detail: 'Create accounts, authenticate users, manage inventory and food service workflows, provide reports and operate subscriptions.',
   },
   {
     purpose: 'Secure and maintain HealthServe',
@@ -117,7 +117,7 @@ export default function Privacy() {
           <section>
             <h2 className="text-xl font-semibold text-gray-950">Retention</h2>
             <p className="mt-3 text-gray-700">
-              We keep personal data for as long as needed to provide HealthServe, meet legal and accounting obligations, resolve disputes and maintain security records. Business stock data is kept while the account is active unless deleted earlier by an authorised user or as required by law.
+              We keep personal data for as long as needed to provide HealthServe, meet legal and accounting obligations, resolve disputes and maintain security records. Operational inventory data is kept while the account is active unless deleted earlier by an authorised user or as required by law.
             </p>
           </section>
 

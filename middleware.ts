@@ -7,8 +7,10 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const redirectToLogin = () => {
     const callback = encodeURIComponent(request.nextUrl.pathname + request.nextUrl.search);
-    const loginPath = `/login?callbackUrl=${callback}`;
-    return NextResponse.redirect(loginPath);
+    const loginUrl = request.nextUrl.clone();
+    loginUrl.pathname = "/login";
+    loginUrl.search = `callbackUrl=${callback}`;
+    return NextResponse.redirect(loginUrl);
   };
 
   // Public paths
@@ -37,6 +39,7 @@ export async function middleware(request: NextRequest) {
       pathname.startsWith("/reorder") ||
       pathname.startsWith("/expiry") ||
       pathname.startsWith("/waste") ||
+      pathname.startsWith("/compliance") ||
       pathname.startsWith("/staff-requests") ||
       pathname.startsWith("/reports") ||
       pathname.startsWith("/automation-logs") ||

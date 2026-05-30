@@ -1,79 +1,94 @@
 # HealthServe
 
-Simple stock control for small businesses.
+HealthServe is a healthcare food service operations platform for care homes, hospitals, and regulated kitchens. It helps teams manage inventory, HACCP-ready compliance records, waste, suppliers, staff requests, reorder lists, and operational reporting from one place.
 
-Tech stack
-- Next.js (TypeScript)
+## Product Positioning
+
+HealthServe is built for food service teams that need to prove compliance, reduce avoidable waste, and control purchasing without relying on scattered spreadsheets or paper logs.
+
+Core outcomes:
+- Reduce food waste by tracking item, quantity, reason, and cost.
+- Keep compliance records ready for CQC, FSA, and internal audits.
+- Track stock levels, expiry dates, reorder thresholds, and supplier costs.
+- Give staff a structured way to request missing or low-stock items.
+- Export reports for management, finance, procurement, and inspection preparation.
+
+Target users:
+- Care home catering teams
+- Hospital food service teams
+- Healthcare operations managers
+- Regulated kitchens in prisons, military, and institutional settings
+- Multi-site operators that need consistent food service controls
+
+## Tech Stack
+
+- Next.js with TypeScript
 - Tailwind CSS
-- Prisma + PostgreSQL
-- NextAuth for authentication (Credentials provider for demo)
-- Stripe placeholders for billing
+- Prisma and PostgreSQL
+- NextAuth credentials authentication for demo and MVP workflows
+- Stripe checkout and webhook placeholders for billing
+- Playwright smoke tests
 
-What this repo contains
-- Prisma schema: `prisma/schema.prisma`
-- Seed script: `prisma/seed.ts` (creates demo business, users, suppliers, stock items)
-- Basic Next.js pages and API route skeletons
+## What This Repo Contains
 
-Demo login
-- Owner: owner@healthserve.demo / Password123!
-- Staff: staff@healthserve.demo / Password123!
-- Admin: admin@healthserve.demo / Password123!
+- Public HealthServe landing pages and pricing/features pages
+- Authenticated dashboard, inventory, supplier, reorder, waste, expiry, reporting, staff request, billing, and admin pages
+- API routes for inventory, waste, staff requests, reorders, exports, auth, billing, automation, and admin workflows
+- Prisma schema and migrations
+- Seed script for demo users and sample operational data
+- Launch, outreach, production, QA, and 30-day go-to-market documents
 
-Production account creation
-- Use `/register` to create the first real business owner account.
-- Do not run `npm run seed` against production unless you intentionally want demo data.
-- Demo users use `@healthserve.demo` addresses and must not be used for real customers.
-- Create production admin accounts through the controlled `npm run admin:create` operator script.
+## Demo Login
 
-Local setup
-1. Install dependencies
+- Owner: `owner@healthserve.demo` / `Password123!`
+- Staff: `staff@healthserve.demo` / `Password123!`
+- Admin: `admin@healthserve.demo` / `Password123!`
+
+Demo accounts are for local testing only. Do not use `@healthserve.demo` addresses for production customers or operators.
+
+## Local Setup
+
+1. Install dependencies:
 
 ```bash
 npm install
 ```
 
-2. Create a PostgreSQL database and set `DATABASE_URL` in `.env` (copy `.env.example`)
+2. Copy `.env.example` and set a local PostgreSQL `DATABASE_URL`.
 
-3. Generate Prisma client and run migrations
+3. Generate Prisma Client and run migrations:
 
 ```bash
 npx prisma generate
 npx prisma migrate dev --name init
 ```
 
-4. Seed demo data
+4. Seed demo data:
 
 ```bash
 npm run seed
 ```
 
-5. Run development server
+5. Start the development server:
 
 ```bash
 npm run dev
 ```
 
-Prisma commands
+## Prisma Commands
+
 - Open Studio: `npm run prisma:studio`
 - Generate client: `npm run prisma:generate`
 - Check migration status: `npm run prisma:status`
 - Apply committed migrations in production: `npm run prisma:deploy`
 
-Deployment database flow
-1. Ensure `DATABASE_URL` points at the target PostgreSQL database.
-2. Generate Prisma Client: `npm run prisma:generate`
-3. Apply committed migrations: `npm run prisma:deploy`
-4. Build and start the app.
-
 Do not run `npm run prisma:migrate` against production. It is a local development command that can create new migration files.
 
-Production environment check
-- Copy `.env.production.example` into your hosting platform's production environment settings.
-- Run `npm run env:check` in a production-like environment to confirm required values are present.
+## Production Account Creation
 
-Controlled admin creation
-- Set `DATABASE_URL` to the target production database.
-- Run the admin creation script with one-time environment variables:
+- Use `/register` to create the first real facility owner account.
+- Do not run `npm run seed` against production unless demo data is explicitly required.
+- Create production admin accounts through the controlled operator script:
 
 ```powershell
 $env:ADMIN_EMAIL='admin@example.com'
@@ -83,32 +98,48 @@ $env:CONFIRM_CREATE_ADMIN='CREATE_ADMIN'
 npm run admin:create
 ```
 
-- Do not use `@healthserve.demo` addresses for production admin users.
+## Deployment Flow
 
-Stripe
-- This repo includes placeholder API routes for creating a Checkout session and a webhook receiver. Configure Stripe keys in `.env` when ready.
+1. Ensure `DATABASE_URL` points at the target PostgreSQL database.
+2. Generate Prisma Client: `npm run prisma:generate`.
+3. Apply committed migrations: `npm run prisma:deploy`.
+4. Configure production environment variables.
+5. Build and start the app.
 
-Production
-- See `PRODUCTION_CHECKLIST.md` before deploying a live instance.
+Production checklist:
+- See `PRODUCTION_CHECKLIST.md`.
+- Copy `.env.production.example` into the hosting platform's production environment settings.
+- Run `npm run env:check` in a production-like environment before launch.
 
-Folder structure
+## Billing
+
+The repo includes placeholder API routes for creating a Stripe Checkout session and receiving Stripe webhooks. Configure live Stripe keys, products, price IDs, and webhook secrets before taking real payments.
+
+## Key Folders
+
 - `pages/` - Next.js pages and API routes
-- `prisma/` - Prisma schema and seed script
-- `lib/` - helpers (Prisma client)
-- `styles/` - global styles
+- `components/` - Shared UI and layout components
+- `prisma/` - Prisma schema, migrations, and seed script
+- `lib/` - Auth, Prisma, validation, permissions, and utility helpers
+- `tests/` - Playwright smoke and boundary tests
+- `styles/` - Global Tailwind styles
 
-Future roadmap ideas
+## Roadmap Ideas
+
+- Temperature log module
+- Compliance task schedules and sign-off workflows
+- Multi-site dashboards
+- Supplier document storage
+- Recipe and menu costing
 - Barcode scanning
-- Mobile app
-- AI demand forecasting (not in MVP)
+- Mobile-first kitchen workflows
+- Demand forecasting
 - Supplier order automation
-- Multi-location stock transfer
-- WhatsApp reorder approvals
-- EPOS integration
-- Recipe/ingredient costing
-- Staff permissions and roles
+- EPOS and procurement integrations
 
-Notes
-- For the local demo, users are seeded with the shared password `Password123!`; registration-created passwords are hashed with bcrypt.
-- The Stripe integration is a placeholder; do not expect live billing until configured.
+## Launch Documents
 
+- `HEALTHSERVE_LAUNCH.md` - domain, deployment, and launch setup
+- `HEALTHSERVE_OUTREACH.md` - cold email, call script, and prospecting notes
+- `HEALTHSERVE_COMBINED_PROMPT.md` - master prompt for generating HealthServe GTM assets
+- `HEALTHSERVE_30_DAY_CHECKLIST.md` - daily launch execution checklist

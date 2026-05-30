@@ -7,15 +7,15 @@ const nav = [
   { label: 'Pricing', href: '#pricing' },
 ]
 
-export default function HealthServeHeader() {
+export default function WasteVerityHeader() {
   return (
     <header className="border-b border-slate-200 bg-white">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded bg-blue-700">
-            <span className="text-lg font-bold text-white">H</span>
+            <span className="text-lg font-bold text-white">W</span>
           </div>
-          <span className="text-lg font-bold text-slate-950">HealthServe</span>
+          <span className="text-lg font-bold text-slate-950">WasteVerity</span>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">

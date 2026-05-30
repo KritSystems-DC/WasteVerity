@@ -1,10 +1,10 @@
-# HealthServe
+# WasteVerity
 
-HealthServe is a healthcare food service operations platform for care homes, hospitals, and regulated kitchens. It helps teams manage inventory, HACCP-ready compliance records, waste, suppliers, staff requests, reorder lists, and operational reporting from one place.
+WasteVerity is a healthcare food service operations platform for care homes, hospitals, and regulated kitchens. It helps teams manage inventory, HACCP-ready compliance records, waste, suppliers, staff requests, reorder lists, and operational reporting from one place.
 
 ## Product Positioning
 
-HealthServe is built for food service teams that need to prove compliance, reduce avoidable waste, and control purchasing without relying on scattered spreadsheets or paper logs.
+WasteVerity is built for food service teams that need to prove compliance, reduce avoidable waste, and control purchasing without relying on scattered spreadsheets or paper logs.
 
 Core outcomes:
 - Reduce food waste by tracking item, quantity, reason, and cost.
@@ -31,7 +31,7 @@ Target users:
 
 ## What This Repo Contains
 
-- Public HealthServe landing pages and pricing/features pages
+- Public WasteVerity landing pages and pricing/features pages
 - Authenticated dashboard, inventory, supplier, reorder, waste, expiry, reporting, staff request, billing, and admin pages
 - API routes for inventory, waste, staff requests, reorders, exports, auth, billing, automation, and admin workflows
 - Prisma schema and migrations
@@ -40,11 +40,11 @@ Target users:
 
 ## Demo Login
 
-- Owner: `owner@healthserve.demo` / `Password123!`
-- Staff: `staff@healthserve.demo` / `Password123!`
-- Admin: `admin@healthserve.demo` / `Password123!`
+- Owner: `owner@wasteverity.demo` / `Password123!`
+- Staff: `staff@wasteverity.demo` / `Password123!`
+- Admin: `admin@wasteverity.demo` / `Password123!`
 
-Demo accounts are for local testing only. Do not use `@healthserve.demo` addresses for production customers or operators.
+Demo accounts are for local testing only. Do not use `@wasteverity.demo` addresses for production customers or operators.
 
 ## Local Setup
 
@@ -139,7 +139,7 @@ The repo includes placeholder API routes for creating a Stripe Checkout session 
 
 ## Launch Documents
 
-- `HEALTHSERVE_LAUNCH.md` - domain, deployment, and launch setup
-- `HEALTHSERVE_OUTREACH.md` - cold email, call script, and prospecting notes
-- `HEALTHSERVE_COMBINED_PROMPT.md` - master prompt for generating HealthServe GTM assets
-- `HEALTHSERVE_30_DAY_CHECKLIST.md` - daily launch execution checklist
+- `WASTEVERITY_LAUNCH.md` - domain, deployment, and launch setup
+- `WASTEVERITY_OUTREACH.md` - cold email, call script, and prospecting notes
+- `WASTEVERITY_COMBINED_PROMPT.md` - master prompt for generating WasteVerity GTM assets
+- `WASTEVERITY_30_DAY_CHECKLIST.md` - daily launch execution checklist

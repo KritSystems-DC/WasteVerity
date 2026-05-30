@@ -1,4 +1,4 @@
-# HealthServe Cold Email and Outreach Sequence
+# WasteVerity Cold Email and Outreach Sequence
 
 Use this sequence for targeted outreach to healthcare food service leaders. Keep each message specific to the facility type and the operational pain: compliance admin, food waste, stock control, and audit readiness.
 
@@ -26,7 +26,7 @@ Quick question: how much time does your team currently spend on:
 2. Tracking food waste by day, meal, or item
 3. Preparing evidence before CQC or internal audits
 
-I ask because HealthServe helps healthcare food service teams manage those workflows in one place.
+I ask because WasteVerity helps healthcare food service teams manage those workflows in one place.
 
 Most facilities we speak with are trying to cut avoidable waste, reduce spreadsheet work, and make audit preparation less painful.
 
@@ -34,7 +34,7 @@ Would a 20-minute walkthrough be useful this week?
 
 [Your Name]
 [Your Phone]
-https://healthserve.co
+https://wasteverity.co
 ```
 
 ## Email 2: Value Follow-Up
@@ -52,9 +52,9 @@ The pattern we see in healthcare kitchens is usually one of these:
 2. Waste is recorded inconsistently, so the cost is hard to prove.
 3. Reorders happen reactively because stock and expiry risk are not visible early enough.
 
-HealthServe brings compliance records, waste tracking, inventory, suppliers, staff requests, and reports into one operating system.
+WasteVerity brings compliance records, waste tracking, inventory, suppliers, staff requests, and reports into one operating system.
 
-If you are open to it, I can show how a single facility can use HealthServe for a 30-day pilot.
+If you are open to it, I can show how a single facility can use WasteVerity for a 30-day pilot.
 
 Would next week work?
 
@@ -68,7 +68,7 @@ Subject: reducing waste without adding admin
 ```text
 Hi [Name],
 
-One reason healthcare food service teams look at HealthServe is that waste reduction usually has to happen without giving staff another complicated system.
+One reason healthcare food service teams look at WasteVerity is that waste reduction usually has to happen without giving staff another complicated system.
 
 The 30-day pilot focuses on three measurable areas:
 
@@ -94,7 +94,7 @@ If now is not the right time for a call, I can send a short walkthrough instead.
 
 It covers:
 
-- How HealthServe records HACCP-ready compliance activity
+- How WasteVerity records HACCP-ready compliance activity
 - How the waste dashboard shows avoidable loss
 - How inventory, expiry, suppliers, and reorders connect
 - What a 30-day pilot looks like for one facility
@@ -124,13 +124,13 @@ Best,
 ## LinkedIn Connection Message
 
 ```text
-Hi [Name], I work on HealthServe, a healthcare food service platform for compliance logs, waste tracking, stock control, and audit-ready reporting. Thought it would be useful to connect.
+Hi [Name], I work on WasteVerity, a healthcare food service platform for compliance logs, waste tracking, stock control, and audit-ready reporting. Thought it would be useful to connect.
 ```
 
 ## Call Opening
 
 ```text
-Hi [Name], thanks for taking the time. HealthServe helps healthcare food service teams reduce avoidable waste and keep HACCP, stock, supplier, and reporting workflows in one place. Before I show anything, what is the bigger issue for your team right now: audit prep, waste visibility, or stock control?
+Hi [Name], thanks for taking the time. WasteVerity helps healthcare food service teams reduce avoidable waste and keep HACCP, stock, supplier, and reporting workflows in one place. Before I show anything, what is the bigger issue for your team right now: audit prep, waste visibility, or stock control?
 ```
 
 ## Discovery Questions
@@ -157,19 +157,19 @@ Hi [Name], thanks for taking the time. HealthServe helps healthcare food service
 Care homes:
 
 ```text
-For care homes, HealthServe focuses on reducing avoidable food waste, keeping CQC evidence organised, and giving kitchen teams a simple daily workflow.
+For care homes, WasteVerity focuses on reducing avoidable food waste, keeping CQC evidence organised, and giving kitchen teams a simple daily workflow.
 ```
 
 Hospitals:
 
 ```text
-For hospitals, HealthServe helps centralise food service records, supplier visibility, expiry risk, and operational reporting across busy teams.
+For hospitals, WasteVerity helps centralise food service records, supplier visibility, expiry risk, and operational reporting across busy teams.
 ```
 
 Regulated institutional kitchens:
 
 ```text
-For regulated kitchens, HealthServe gives managers clearer control over compliance records, waste, inventory, suppliers, and reporting.
+For regulated kitchens, WasteVerity gives managers clearer control over compliance records, waste, inventory, suppliers, and reporting.
 ```
 
 ## Weekly Metrics

@@ -1,8 +1,8 @@
 import { expect, test, type Page } from '@playwright/test'
 
-const owner = { email: 'owner@healthserve.demo', password: 'Password123!' }
-const staff = { email: 'staff@healthserve.demo', password: 'Password123!' }
-const admin = { email: 'admin@healthserve.demo', password: 'Password123!' }
+const owner = { email: 'owner@wasteverity.demo', password: 'Password123!' }
+const staff = { email: 'staff@wasteverity.demo', password: 'Password123!' }
+const admin = { email: 'admin@wasteverity.demo', password: 'Password123!' }
 
 async function login(page: Page, account: { email: string; password: string }, callbackUrl = '/dashboard') {
   await page.context().clearCookies()

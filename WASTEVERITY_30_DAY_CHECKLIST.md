@@ -1,11 +1,11 @@
-# HealthServe 30-Day Launch Checklist
+# WasteVerity 30-Day Launch Checklist
 
-This checklist turns the HealthServe domain, deployment, and outreach plan into daily execution tasks. The goal is to launch the site, start outreach, book demos, and convert the first pilot customers within 30 days.
+This checklist turns the WasteVerity domain, deployment, and outreach plan into daily execution tasks. The goal is to launch the site, start outreach, book demos, and convert the first pilot customers within 30 days.
 
 ## Week 1: Foundation and Launch
 
 ### Day 1: Domain and Positioning
-- [ ] Choose the final brand domain, preferably `healthserve.co`.
+- [ ] Choose the final brand domain, preferably `wasteverity.co`.
 - [ ] Register the domain for 1-3 years.
 - [ ] Enable auto-renewal and WHOIS privacy.
 - [ ] Write the one-line positioning statement.
@@ -27,7 +27,7 @@ Project:
 ### Day 3: DNS and Email
 - [ ] Add the domain to Vercel.
 - [ ] Configure DNS records.
-- [ ] Create `hello@healthserve.co`.
+- [ ] Create `hello@wasteverity.co`.
 - [ ] Set SPF, DKIM, and DMARC records if using a custom email provider.
 - [ ] Send test emails to Gmail and Outlook accounts.
 
@@ -157,7 +157,7 @@ Project:
 - [ ] Book at least one demo.
 
 Project:
-- [ ] Create a one-page PDF-style summary of HealthServe benefits.
+- [ ] Create a one-page PDF-style summary of WasteVerity benefits.
 
 ### Day 16: Pilot Offer
 - [ ] Define a 30-day pilot package.

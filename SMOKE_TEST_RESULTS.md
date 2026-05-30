@@ -7,7 +7,7 @@ Date: 2026-05-29
 - `npx.cmd tsc --noEmit` passed.
 - `npm.cmd run build` passed.
 - `npm.cmd run start -- -p 3011` started successfully.
-- Local Docker PostgreSQL container `healthserve-postgres` was reachable on `127.0.0.1:5432`.
+- Local Docker PostgreSQL container `wasteverity-postgres` was reachable on `127.0.0.1:5432`.
 - `npx.cmd prisma migrate dev --name init` reported the database was already in sync.
 - `npm.cmd run seed` completed and created the demo owner, staff and admin accounts.
 - `npx.cmd prisma generate` passed after restarting the stale dev server that held the Prisma DLL.
@@ -29,7 +29,7 @@ Date: 2026-05-29
 The repo now has a local `.env` for the Docker-backed demo database:
 
 ```text
-DATABASE_URL=postgresql://postgres:postgres@127.0.0.1:5432/healthserve?schema=public
+DATABASE_URL=postgresql://postgres:postgres@127.0.0.1:5432/wasteverity?schema=public
 ```
 
 The dev server is running at `http://localhost:3000`.

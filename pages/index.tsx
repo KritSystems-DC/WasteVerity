@@ -1,4 +1,4 @@
-import HealthServeHeader from '@/components/HealthServeHeader'
+import WasteVerityHeader from '@/components/WasteVerityHeader'
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
 
@@ -42,7 +42,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-slate-50 text-slate-950">
-      <HealthServeHeader />
+      <WasteVerityHeader />
 
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
@@ -52,7 +52,7 @@ export default function Home() {
               Show the cost of waste, prove the compliance gain, then run the kitchen from one system.
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
-              HealthServe combines the sales case and the operating app: prospects can estimate avoidable loss, understand the compliance workflow, and move straight into a managed pilot.
+              WasteVerity combines the sales case and the operating app: prospects can estimate avoidable loss, understand the compliance workflow, and move straight into a managed pilot.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href="#savings" className="rounded bg-blue-700 px-5 py-3 font-semibold text-white hover:bg-blue-800">
@@ -147,7 +147,7 @@ export default function Home() {
           <p className="text-sm font-semibold uppercase tracking-wide text-blue-700">Why teams buy</p>
           <h2 className="mt-3 text-3xl font-bold">The savings case is operational, not theoretical.</h2>
           <p className="mt-4 text-slate-600">
-            HealthServe helps operators expose the avoidable cost, then gives the catering team the workflows needed to reduce it.
+            WasteVerity helps operators expose the avoidable cost, then gives the catering team the workflows needed to reduce it.
           </p>
         </div>
         <div className="mt-8 grid gap-5 md:grid-cols-3">

@@ -69,7 +69,7 @@ export default function Setup() {
       <div className="space-y-6">
         <div>
           <h1 className="text-2xl font-bold">Business setup</h1>
-          <p className="mt-2 text-gray-600">Complete your facility profile so HealthServe can track inventory and kitchen controls accurately.</p>
+          <p className="mt-2 text-gray-600">Complete your facility profile so WasteVerity can track inventory and kitchen controls accurately.</p>
         </div>
 
         {loading ? (

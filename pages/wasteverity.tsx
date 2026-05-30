@@ -1,4 +1,4 @@
-import HealthServeHeader from '@/components/HealthServeHeader'
+import WasteVerityHeader from '@/components/WasteVerityHeader'
 import { useMemo, useState } from 'react'
 
 const modules = [
@@ -36,24 +36,24 @@ const features = [
   'Admin controls for multi-user teams',
 ]
 
-export default function HealthServeLanding() {
+export default function WasteVerityLanding() {
   const [residents, setResidents] = useState(100)
   const annualWaste = residents * 45 * 52
   const annualSavings = useMemo(() => Math.round(annualWaste * 0.18), [annualWaste])
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-950">
-      <HealthServeHeader />
+      <WasteVerityHeader />
 
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-blue-700">HealthServe for healthcare food service</p>
+            <p className="text-sm font-semibold uppercase tracking-wide text-blue-700">WasteVerity for healthcare food service</p>
             <h1 className="mt-4 text-4xl font-bold leading-tight sm:text-5xl">
               Reduce kitchen waste, simplify compliance, and keep every facility audit-ready.
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
-              HealthServe gives care homes, hospitals, and regulated food service teams one place to manage stock,
+              WasteVerity gives care homes, hospitals, and regulated food service teams one place to manage stock,
               HACCP records, waste, suppliers, staff requests, and reporting.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -118,7 +118,7 @@ export default function HealthServeLanding() {
             <p className="text-sm font-semibold uppercase tracking-wide text-blue-700">Platform coverage</p>
             <h2 className="mt-3 text-3xl font-bold">Built around the daily work of regulated kitchens.</h2>
             <p className="mt-4 text-slate-600">
-              HealthServe is designed for the recurring routines that decide whether a kitchen is compliant,
+              WasteVerity is designed for the recurring routines that decide whether a kitchen is compliant,
               cost-controlled, and ready for inspection.
             </p>
           </div>
@@ -136,7 +136,7 @@ export default function HealthServeLanding() {
         <div className="rounded border border-slate-200 bg-white p-8">
           <h2 className="text-3xl font-bold">Pilot offer</h2>
           <p className="mt-4 max-w-3xl text-slate-600">
-            Start with one facility for 30 days. HealthServe helps configure inventory categories, waste reasons,
+            Start with one facility for 30 days. WasteVerity helps configure inventory categories, waste reasons,
             compliance tasks, users, and reports, then reviews the operational impact at the end of the pilot.
           </p>
           <div className="mt-6 grid gap-4 md:grid-cols-3">
@@ -163,7 +163,7 @@ export default function HealthServeLanding() {
             Book a 20-minute walkthrough focused on your current compliance process, waste records, and stock workflow.
           </p>
           <a href="/register" className="mt-8 inline-flex rounded bg-white px-6 py-3 font-semibold text-blue-700 hover:bg-blue-50">
-            Start HealthServe setup
+            Start WasteVerity setup
           </a>
         </div>
       </section>

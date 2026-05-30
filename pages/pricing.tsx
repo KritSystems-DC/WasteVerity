@@ -23,7 +23,7 @@ export default function Pricing() {
   return (
     <main className="min-h-screen bg-slate-50 px-6 py-12 text-slate-950">
       <section className="mx-auto max-w-6xl">
-        <p className="text-sm font-semibold uppercase tracking-wide text-blue-700">HealthServe pricing</p>
+        <p className="text-sm font-semibold uppercase tracking-wide text-blue-700">WasteVerity pricing</p>
         <h1 className="mt-3 text-4xl font-bold">Start with one facility, prove the savings, then scale.</h1>
         <p className="mt-4 max-w-3xl text-lg text-slate-600">
           Pricing is structured around operational value: reduced waste, faster compliance preparation, and better stock control.

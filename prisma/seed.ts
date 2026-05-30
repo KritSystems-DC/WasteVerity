@@ -11,33 +11,33 @@ async function main() {
 
   // Create demo users
   const owner = await prisma.user.upsert({
-    where: { email: 'owner@healthserve.demo' },
+    where: { email: 'owner@wasteverity.demo' },
     update: {},
     create: {
       name: 'Demo Owner',
-      email: 'owner@healthserve.demo',
+      email: 'owner@wasteverity.demo',
       passwordHash: hashedPassword,
       role: 'OWNER',
     }
   })
 
   const staff = await prisma.user.upsert({
-    where: { email: 'staff@healthserve.demo' },
+    where: { email: 'staff@wasteverity.demo' },
     update: {},
     create: {
       name: 'Demo Staff',
-      email: 'staff@healthserve.demo',
+      email: 'staff@wasteverity.demo',
       passwordHash: hashedPassword,
       role: 'STAFF'
     }
   })
 
   const admin = await prisma.user.upsert({
-    where: { email: 'admin@healthserve.demo' },
+    where: { email: 'admin@wasteverity.demo' },
     update: {},
     create: {
       name: 'Platform Admin',
-      email: 'admin@healthserve.demo',
+      email: 'admin@wasteverity.demo',
       passwordHash: hashedPassword,
       role: 'ADMIN'
     }
@@ -202,9 +202,9 @@ async function main() {
 
   console.log('✅ Seeding complete.')
   console.log('\n📱 Demo Credentials:')
-  console.log('Owner: owner@healthserve.demo / Password123!')
-  console.log('Staff: staff@healthserve.demo / Password123!')
-  console.log('Admin: admin@healthserve.demo / Password123!')
+  console.log('Owner: owner@wasteverity.demo / Password123!')
+  console.log('Staff: staff@wasteverity.demo / Password123!')
+  console.log('Admin: admin@wasteverity.demo / Password123!')
 }
 
 main()

@@ -50,7 +50,7 @@ async function main() {
   const password = requireValue('ADMIN_PASSWORD')
 
   if (!validateEmail(email)) throw new Error('ADMIN_EMAIL must be a valid email address.')
-  if (email.endsWith('@healthserve.demo') && process.env.ADMIN_ALLOW_DEMO !== 'true') {
+  if (email.endsWith('@wasteverity.demo') && process.env.ADMIN_ALLOW_DEMO !== 'true') {
     throw new Error('Refusing to create a demo-domain admin. Use a real production email address.')
   }
 

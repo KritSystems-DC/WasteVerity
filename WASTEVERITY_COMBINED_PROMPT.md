@@ -1,17 +1,17 @@
-# HealthServe Vercel Sales Website Prompt
+# WasteVerity Vercel Sales Website Prompt
 
 Copy and paste the prompt below into Vercel's new project flow at `https://vercel.com/new`.
 
 ```text
-Build a premium sales website for a service company called HealthServe.
+Build a premium sales website for a service company called WasteVerity.
 
 Important: this is a service website, not a SaaS product dashboard. Do not build login, app screens, database models, admin panels, or product CRUD workflows. Build a high-converting marketing and sales website designed to generate enquiries, calls, and consultation bookings.
 
 Company name:
-HealthServe
+WasteVerity
 
-What HealthServe does:
-HealthServe helps care homes, hospitals, healthcare kitchens, and regulated food service operators reduce food waste, improve catering operations, simplify compliance preparation, and control food service costs.
+What WasteVerity does:
+WasteVerity helps care homes, hospitals, healthcare kitchens, and regulated food service operators reduce food waste, improve catering operations, simplify compliance preparation, and control food service costs.
 
 Positioning:
 "Food service improvement for healthcare teams. Reduce waste, tighten compliance routines, and control kitchen costs without adding admin burden."
@@ -135,7 +135,7 @@ Headline options:
 - "Make food waste, compliance, stock, and supplier control easier to manage."
 
 Subheadline:
-HealthServe helps healthcare food service teams find avoidable waste, tighten daily compliance routines, and build practical operating controls that managers can actually use.
+WasteVerity helps healthcare food service teams find avoidable waste, tighten daily compliance routines, and build practical operating controls that managers can actually use.
 
 Service page requirements:
 - Explain each service clearly
@@ -165,7 +165,7 @@ Sections:
 - CTA: "Book a 20-minute consultation"
 
 About page requirements:
-- Position HealthServe as practical, operations-focused, and built for healthcare food service environments
+- Position WasteVerity as practical, operations-focused, and built for healthcare food service environments
 - Emphasise measurable improvement, simple routines, and management visibility
 - Do not make unsupported claims like "500+ customers" unless framed as example placeholders
 
@@ -181,11 +181,11 @@ Contact page requirements:
   - Message
 - Include CTA copy:
   "Tell us what is happening in your kitchen. We will reply with the best next step."
-- Include placeholder contact email: hello@healthserve.co
+- Include placeholder contact email: hello@wasteverity.co
 
 SEO requirements:
-- Page title: HealthServe | Healthcare Food Service Improvement
-- Meta description: HealthServe helps care homes, hospitals, and healthcare kitchens reduce food waste, improve compliance routines, and control food service costs.
+- Page title: WasteVerity | Healthcare Food Service Improvement
+- Meta description: WasteVerity helps care homes, hospitals, and healthcare kitchens reduce food waste, improve compliance routines, and control food service costs.
 - Use semantic headings
 - Include local/UK-friendly language where natural, including care homes, CQC preparation, HACCP routines, and healthcare catering
 
@@ -208,7 +208,7 @@ Do not:
 - Do not make the site feel like a generic template
 
 Output:
-Create the complete website with polished copy, responsive UI, reusable components, and clear file structure. The result should be ready to deploy on Vercel as a sales website for HealthServe.
+Create the complete website with polished copy, responsive UI, reusable components, and clear file structure. The result should be ready to deploy on Vercel as a sales website for WasteVerity.
 ```
 
 ## Optional Follow-Up Prompt
@@ -216,7 +216,7 @@ Create the complete website with polished copy, responsive UI, reusable componen
 Use this after the first generated version if the website feels too generic:
 
 ```text
-Improve this HealthServe website so it feels more like a specialist healthcare food service improvement consultancy and less like a generic SaaS landing page.
+Improve this WasteVerity website so it feels more like a specialist healthcare food service improvement consultancy and less like a generic SaaS landing page.
 
 Make the copy sharper, more operational, and more specific to care homes, hospitals, HACCP routines, CQC preparation, waste tracking, stock control, expiry risk, supplier ordering, and management visibility.
 

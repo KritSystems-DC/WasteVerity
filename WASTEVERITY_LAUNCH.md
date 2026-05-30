@@ -1,15 +1,15 @@
-# HealthServe Domain and Deployment Guide
+# WasteVerity Domain and Deployment Guide
 
-HealthServe should launch as a focused healthcare food service platform, not a generic inventory app. The launch assets should consistently describe the product as compliance, waste, inventory, and reporting software for regulated kitchens.
+WasteVerity should launch as a focused healthcare food service platform, not a generic inventory app. The launch assets should consistently describe the product as compliance, waste, inventory, and reporting software for regulated kitchens.
 
 ## Domain Strategy
 
 Preferred options:
 
-1. `healthserve.co` - short, modern, and suitable for SaaS.
-2. `healthserve.uk` - strong if the first market is UK care homes and hospitals.
-3. `gethealthserve.com` - useful if the preferred domain is unavailable.
-4. `healthserve.health` - premium and niche-specific, but less familiar.
+1. `wasteverity.co` - short, modern, and suitable for SaaS.
+2. `wasteverity.uk` - strong if the first market is UK care homes and hospitals.
+3. `getwasteverity.com` - useful if the preferred domain is unavailable.
+4. `wasteverity.health` - premium and niche-specific, but less familiar.
 
 Registration steps:
 
@@ -48,7 +48,7 @@ DNS setup for Vercel:
 - [ ] Environment variables configured.
 - [ ] Prisma migrations deployed.
 - [ ] Demo users disabled or clearly isolated.
-- [ ] `hello@healthserve.co` created.
+- [ ] `hello@wasteverity.co` created.
 - [ ] SPF, DKIM, and DMARC records configured.
 - [ ] Calendly demo link created.
 - [ ] Google Analytics or another analytics tool installed.
@@ -67,9 +67,9 @@ Recommended mailbox options:
 
 Create these addresses:
 
-- `hello@healthserve.co` for outbound and demo requests.
-- `support@healthserve.co` for customer support.
-- `billing@healthserve.co` for payment and invoice messages.
+- `hello@wasteverity.co` for outbound and demo requests.
+- `support@wasteverity.co` for customer support.
+- `billing@wasteverity.co` for payment and invoice messages.
 
 Deliverability setup:
 

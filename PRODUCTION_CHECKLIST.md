@@ -1,6 +1,6 @@
-# HealthServe Production Checklist
+# WasteVerity Production Checklist
 
-Use this before deploying a live HealthServe instance.
+Use this before deploying a live WasteVerity instance.
 
 ## Environment
 
@@ -43,9 +43,9 @@ npm run prisma:status
 - [ ] Do not run `npm run prisma:migrate` or `prisma migrate dev` against production.
 - [ ] Do not run `npm run seed` against production unless you intentionally want demo data and demo users.
 - [ ] Replace or disable seeded demo accounts before launch:
-  - `owner@healthserve.demo`
-  - `staff@healthserve.demo`
-  - `admin@healthserve.demo`
+  - `owner@wasteverity.demo`
+  - `staff@wasteverity.demo`
+  - `admin@wasteverity.demo`
 
 ## Authentication
 

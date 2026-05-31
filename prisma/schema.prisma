@@ -32,6 +32,7 @@ model User {
   wasteRecords          WasteRecord[]
   adminNotes            AdminNote[] @relation("adminUser")
   targetAdminNotes      AdminNote[] @relation("targetUser")
+  complianceRecords     ComplianceRecord[] @relation("completedByUser")
 
   @@index([businessId])
 }
@@ -78,6 +79,7 @@ model Business {
   priceHistories        PriceHistory[]
   adminNotes            AdminNote[]
   integrations          Integration[]
+  complianceRecords     ComplianceRecord[]
 
   @@index([ownerId])
   @@index([status])
@@ -480,4 +482,30 @@ model Integration {
 
   @@unique([businessId, type])
   @@index([businessId])
+}
+
+// ============================================
+// COMPLIANCE
+// ============================================
+
+model ComplianceRecord {
+  id                    String     @id @default(cuid())
+  businessId            String
+  business              Business   @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  templateId            String
+  title                 String
+  category              String
+  cadence               String
+  owner                 String
+  purpose               String
+  values                Json
+  completedByUserId     String
+  completedByUser       User       @relation("completedByUser", fields: [completedByUserId], references: [id], onDelete: Cascade)
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime   @updatedAt
+
+  @@index([businessId])
+  @@index([templateId])
+  @@index([category])
+  @@index([createdAt])
 }

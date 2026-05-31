@@ -81,10 +81,29 @@ test.describe('owner workflow', () => {
     await page.getByRole('button', { name: 'Save setup' }).click()
     await expect(page.getByText('Business setup saved successfully.')).toBeVisible()
 
-    for (const path of ['/stock', '/suppliers', '/expiry', '/reports', '/automation-logs', '/billing', '/settings']) {
+    for (const path of ['/stock', '/suppliers', '/expiry', '/reports', '/automation-logs', '/billing', '/settings', '/compliance']) {
       await page.goto(path)
       await expect(page.locator('main h1')).toBeVisible()
     }
+  })
+
+  test('fills and saves a compliance document', async ({ page }) => {
+    await page.goto('/compliance')
+    await expectHeading(page, 'Compliance documents')
+    await page.getByRole('button', { name: /Fridge \/ Freezer Temperature Log/ }).click()
+
+    const form = page.locator('form')
+    await form.locator('input[type="date"]').fill('2026-05-31')
+    await form.locator('input[type="time"]').fill('09:30')
+    await form.locator('input[type="text"]').nth(0).fill('Walk-in fridge 1')
+    await form.locator('select').selectOption('Fridge')
+    await form.locator('input[type="number"]').fill('3')
+    await form.locator('input[type="checkbox"]').check()
+    await form.locator('input[type="text"]').nth(1).fill('QA Checker')
+    await page.getByRole('button', { name: 'Save completed form' }).click()
+
+    await expect(page.getByText('Compliance record saved.')).toBeVisible()
+    await expect(page.getByRole('cell', { name: 'Fridge / Freezer Temperature Log' }).first()).toBeVisible()
   })
 
   test('creates, edits and adjusts a stock item', async ({ page }) => {

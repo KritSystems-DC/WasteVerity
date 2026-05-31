@@ -31,12 +31,21 @@ Target users:
 
 ## What This Repo Contains
 
-- Public WasteVerity landing pages and pricing/features pages
-- Authenticated dashboard, inventory, supplier, reorder, waste, expiry, reporting, fillable compliance records, recurring compliance schedules, staff request, billing, and admin pages
+- Public WasteVerity website pages for sales, engagement, pricing, demos, legal copy, and launch messaging
+- Authenticated WasteVerity app pages for the actual operational tool: dashboard, inventory, supplier, reorder, waste, expiry, reporting, fillable compliance records, recurring compliance schedules, staff request, billing, and admin workflows
 - API routes for inventory, compliance records and schedules, waste, staff requests, reorders, exports, auth, billing, automation, and admin workflows
 - Prisma schema and migrations
 - Seed script for demo users and sample operational data
 - Launch, outreach, production, QA, and 30-day go-to-market documents
+
+## Product Surface Boundaries
+
+WasteVerity has two separate surfaces:
+
+- The authenticated app is the product. It must prioritise practical operational workflows for phone, tablet/iPad, and desktop use.
+- The public website is the sales and engagement surface. It should explain the company, convert prospects, support demos, and route users into the app only when they are ready to log in or start onboarding.
+
+Do not treat marketing pages as the product experience. Product changes should happen in the authenticated app routes and shared app components.
 
 ## Demo Login
 

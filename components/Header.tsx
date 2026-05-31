@@ -1,12 +1,11 @@
 import React from "react";
 import { signOut, useSession } from "next-auth/react";
-import Link from "next/link";
 
 export const Header: React.FC = () => {
   const { data: session } = useSession();
 
   return (
-    <header className="bg-white border-b border-gray-200 p-4 md:ml-64">
+    <header className="bg-white border-b border-gray-200 p-4">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-semibold text-gray-900">{session?.user?.name}</h2>

@@ -37,3 +37,6 @@ Thumbs.db
 # local archives
 *.zip
 .vercel
+
+# private ops notes
+ops-private/

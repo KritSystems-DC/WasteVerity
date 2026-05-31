@@ -22,7 +22,7 @@ Project:
 - [ ] Confirm the landing page loads correctly.
 
 Project:
-- [ ] Document the deployment URL, production URL, and owner login details in a private ops note.
+- [x] Document the deployment URL, production URL, and owner login details in a private ops note.
 
 ### Day 3: DNS and Email
 - [ ] Add the domain to Vercel.
@@ -32,7 +32,7 @@ Project:
 - [ ] Send test emails to Gmail and Outlook accounts.
 
 Project:
-- [ ] Create a simple email signature with name, role, phone, and website.
+- [x] Create a simple email signature with name, role, phone, and website.
 
 ### Day 4: Landing Page Conversion
 - [ ] Review the landing page headline and CTA.

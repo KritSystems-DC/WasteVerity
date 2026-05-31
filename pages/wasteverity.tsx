@@ -54,8 +54,9 @@ export default function WasteVerityLanding() {
               Reduce kitchen waste, simplify compliance, and keep every facility audit-ready.
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
-              WasteVerity gives care homes, hospitals, and regulated food service teams one place to manage stock,
-              HACCP records, waste, suppliers, staff requests, and reporting.
+              This website handles the sales conversation. The WasteVerity app is the operational tool care homes,
+              hospitals, and regulated food service teams use to manage stock, HACCP records, waste, suppliers,
+              staff requests, and reporting.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href="#demo" className="rounded bg-blue-700 px-6 py-3 font-semibold text-white hover:bg-blue-800">
@@ -163,8 +164,8 @@ export default function WasteVerityLanding() {
           <p className="mt-4 text-blue-100">
             Book a 20-minute walkthrough focused on your current compliance process, waste records, and stock workflow.
           </p>
-          <Link href="/register" className="mt-8 inline-flex rounded bg-white px-6 py-3 font-semibold text-blue-700 hover:bg-blue-50">
-            Start WasteVerity setup
+          <Link href="/wasteverity#demo" className="mt-8 inline-flex rounded bg-white px-6 py-3 font-semibold text-blue-700 hover:bg-blue-50">
+            Book a demo
           </Link>
         </div>
       </section>

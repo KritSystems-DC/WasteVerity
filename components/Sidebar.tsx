@@ -17,10 +17,8 @@ export const NavLink: React.FC<NavLinkProps> = ({ href, children, icon }) => {
     <Link
       href={href}
       className={cn(
-        "flex items-center gap-2 px-4 py-2 rounded-lg transition-colors",
-        isActive
-          ? "bg-blue-100 text-blue-700 font-medium"
-          : "text-gray-700 hover:bg-gray-100"
+        "flex items-center gap-2 rounded-lg px-4 py-2 transition-colors",
+        isActive ? "bg-blue-100 font-medium text-blue-700" : "text-gray-700 hover:bg-gray-100"
       )}
     >
       {icon && <span className="text-lg">{icon}</span>}
@@ -34,23 +32,22 @@ interface SidebarProps {
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ children }) => {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   return (
     <>
-      {/* Mobile menu button */}
       <button
-        onClick={() => setOpen(!open)}
-        className="md:hidden fixed bottom-4 right-4 z-40 bg-blue-600 text-white p-3 rounded-lg"
+        onClick={() => setOpen(true)}
+        className="fixed bottom-4 right-4 z-40 rounded-lg bg-blue-600 px-4 py-3 text-sm font-semibold text-white md:hidden"
+        aria-label="Open app navigation"
       >
-        ☰
+        Menu
       </button>
 
-      {/* Sidebar */}
       <aside
         className={cn(
-          "fixed left-0 top-0 h-screen bg-white border-r border-gray-200 p-6 transition-all duration-300 z-30",
-          open ? "w-64 translate-x-0" : "w-64 -translate-x-full md:translate-x-0 md:w-64"
+          "fixed left-0 top-0 z-30 h-screen w-64 border-r border-gray-200 bg-white p-6 transition-transform duration-300 md:translate-x-0",
+          open ? "translate-x-0" : "-translate-x-full"
         )}
       >
         <div className="space-y-6">
@@ -58,19 +55,19 @@ export const Sidebar: React.FC<SidebarProps> = ({ children }) => {
             <h1 className="text-2xl font-bold text-blue-600">WasteVerity</h1>
             <button
               onClick={() => setOpen(false)}
-              className="md:hidden text-gray-500 hover:text-gray-700"
+              className="text-sm font-medium text-gray-500 hover:text-gray-700 md:hidden"
+              aria-label="Close app navigation"
             >
-              ✕
+              Close
             </button>
           </div>
           <nav className="space-y-2">{children}</nav>
         </div>
       </aside>
 
-      {/* Mobile overlay */}
       {open && (
         <div
-          className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-20"
+          className="fixed inset-0 z-20 bg-black bg-opacity-50 md:hidden"
           onClick={() => setOpen(false)}
         />
       )}

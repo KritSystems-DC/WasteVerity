@@ -49,17 +49,17 @@ export default function Home() {
           <div className="flex flex-col justify-center">
             <p className="text-sm font-semibold uppercase tracking-wide text-blue-700">Healthcare food service savings portal</p>
             <h1 className="mt-4 text-4xl font-bold leading-tight sm:text-5xl">
-              Show the cost of waste, prove the compliance gain, then run the kitchen from one system.
+              Show the cost of waste and book the right operational rollout.
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
-              WasteVerity combines the sales case and the operating app: prospects can estimate avoidable loss, understand the compliance workflow, and move straight into a managed pilot.
+              This public website supports sales, engagement, and demo conversations. The separate WasteVerity app is the working tool used by kitchen and operations teams on phone, tablet, iPad, and desktop.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href="#savings" className="rounded bg-blue-700 px-5 py-3 font-semibold text-white hover:bg-blue-800">
                 Estimate savings
               </a>
-              <Link href="/register" className="rounded border border-slate-300 bg-white px-5 py-3 font-semibold text-slate-800 hover:bg-slate-100">
-                Start pilot
+              <Link href="/wasteverity#demo" className="rounded border border-slate-300 bg-white px-5 py-3 font-semibold text-slate-800 hover:bg-slate-100">
+                Book demo
               </Link>
             </div>
           </div>
@@ -164,9 +164,9 @@ export default function Home() {
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
           <div>
             <p className="text-sm font-semibold uppercase tracking-wide text-blue-700">Compliance and control</p>
-            <h2 className="mt-3 text-3xl font-bold">From sales portal to working software.</h2>
+            <h2 className="mt-3 text-3xl font-bold">From sales conversation to working software.</h2>
             <p className="mt-4 leading-7 text-slate-600">
-              Prospects see the value on the public site. Once they start a pilot, the same product provides stock tracking, waste records, compliance templates, supplier oversight, staff requests, and reports.
+              Prospects see the value on the public website. Once a facility starts a pilot, the authenticated app handles stock tracking, waste records, compliance templates, supplier oversight, staff requests, and reports.
             </p>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
@@ -186,7 +186,7 @@ export default function Home() {
               <p className="text-sm font-semibold uppercase tracking-wide text-blue-700">Pilot conversion path</p>
               <h2 className="mt-3 text-3xl font-bold">Use the calculator to open the conversation, then onboard the facility into the app.</h2>
               <p className="mt-4 leading-7 text-slate-600">
-                The portal is designed to support sales calls, outreach follow-ups, and facility reviews. It gives decision-makers a simple financial model before asking the kitchen team to change process.
+                The website is designed to support sales calls, outreach follow-ups, and facility reviews. The app is designed for repeated operational use by managers and kitchen staff across phone, tablet, iPad, and desktop.
               </p>
             </div>
             <div className="rounded bg-slate-50 p-5">
@@ -195,8 +195,8 @@ export default function Home() {
               <p className="mt-3 text-sm leading-6 text-slate-600">
                 One facility, configured templates, inventory setup, waste reason tracking, supplier records, and management review after 30 days.
               </p>
-              <Link href="/register" className="mt-5 inline-flex rounded bg-blue-700 px-5 py-3 font-semibold text-white hover:bg-blue-800">
-                Start setup
+              <Link href="/wasteverity#demo" className="mt-5 inline-flex rounded bg-blue-700 px-5 py-3 font-semibold text-white hover:bg-blue-800">
+                Book demo
               </Link>
             </div>
           </div>

@@ -4,7 +4,7 @@ const nav = [
   { label: 'Compliance', href: '#compliance' },
   { label: 'Waste', href: '#waste' },
   { label: 'Inventory', href: '#inventory' },
-  { label: 'Pricing', href: '#pricing' },
+  { label: 'Pricing', href: '/wasteverity#pricing' },
 ]
 
 export default function WasteVerityHeader() {
@@ -32,10 +32,10 @@ export default function WasteVerityHeader() {
 
         <div className="flex items-center gap-3">
           <Link href="/login" className="text-sm font-medium text-slate-700 hover:text-blue-700">
-            Login
+            App login
           </Link>
-          <Link href="/register" className="rounded bg-blue-700 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-800">
-            Start pilot
+          <Link href="/wasteverity#demo" className="rounded bg-blue-700 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-800">
+            Book demo
           </Link>
         </div>
       </div>

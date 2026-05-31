@@ -30,7 +30,7 @@ export function AppShell({ children }: AppShellProps) {
       </Sidebar>
       <div className="md:pl-72">
         <Header />
-        <main className="p-6">{children}</main>
+        <main className="p-4 sm:p-6">{children}</main>
       </div>
     </div>
   )

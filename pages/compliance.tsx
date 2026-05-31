@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { GetServerSideProps } from 'next'
 import Link from 'next/link'
 import { getSession } from 'next-auth/react'
@@ -23,6 +23,8 @@ const categories: Array<ComplianceTemplateCategory | 'All'> = [
   'Governance',
 ]
 
+const frequencies = ['Daily', 'Weekly', 'Monthly', 'Quarterly', 'Annual']
+
 interface ComplianceRecordRow {
   id: string
   templateId: string
@@ -31,6 +33,18 @@ interface ComplianceRecordRow {
   values: Record<string, string | boolean>
   createdAt: string
   completedByUser: { name: string; email: string }
+}
+
+interface ComplianceScheduleRow {
+  id: string
+  templateId: string
+  title: string
+  category: string
+  frequency: string
+  owner: string
+  nextDueAt: string
+  lastCompletedAt: string | null
+  isActive: boolean
 }
 
 type FormValues = Record<string, string | boolean>
@@ -85,6 +99,26 @@ function downloadTemplateJson(template: ComplianceTemplate) {
 
 function downloadRecord(record: ComplianceRecordRow) {
   downloadFile(`${slugify(record.title)}-${record.id}.csv`, recordToCsv(record), 'text/csv;charset=utf-8')
+}
+
+function toDateInputValue(date: Date) {
+  return date.toISOString().slice(0, 10)
+}
+
+function scheduleStatus(schedule: ComplianceScheduleRow) {
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  const due = new Date(schedule.nextDueAt)
+  due.setHours(0, 0, 0, 0)
+  if (due < today) return 'Overdue'
+  if (due.getTime() === today.getTime()) return 'Due today'
+  return 'Upcoming'
+}
+
+function statusClass(status: string) {
+  if (status === 'Overdue') return 'bg-red-50 text-red-700 border-red-200'
+  if (status === 'Due today') return 'bg-amber-50 text-amber-800 border-amber-200'
+  return 'bg-green-50 text-green-700 border-green-200'
 }
 
 function FieldInput({
@@ -158,6 +192,14 @@ export default function Compliance() {
   const [selectedId, setSelectedId] = useState(complianceTemplates[0].id)
   const [query, setQuery] = useState('')
   const [records, setRecords] = useState<ComplianceRecordRow[]>([])
+  const [schedules, setSchedules] = useState<ComplianceScheduleRow[]>([])
+  const [selectedScheduleId, setSelectedScheduleId] = useState('')
+  const [scheduleForm, setScheduleForm] = useState({
+    templateId: complianceTemplates[0].id,
+    frequency: 'Daily',
+    nextDueAt: toDateInputValue(new Date()),
+    owner: complianceTemplates[0].owner,
+  })
   const [values, setValues] = useState<FormValues>(() => emptyValues(complianceTemplates[0]))
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
@@ -185,24 +227,63 @@ export default function Compliance() {
   const selectedRecords = records.filter((record) => record.templateId === selectedTemplate.id)
   const totalFields = complianceTemplates.reduce((sum, template) => sum + template.fields.length, 0)
   const requiredFields = selectedTemplate.fields.filter((field) => field.required).length
+  const activeSchedules = schedules.filter((schedule) => schedule.isActive)
+  const dueSchedules = activeSchedules.filter((schedule) => ['Overdue', 'Due today'].includes(scheduleStatus(schedule)))
+  const upcomingSchedules = activeSchedules.slice(0, 8)
+
+  const loadRecords = useCallback(async () => {
+    const res = await fetch('/api/compliance/records')
+    if (!res.ok) {
+      setError('Unable to load completed compliance records.')
+      return
+    }
+    setRecords(await res.json())
+  }, [])
+
+  const loadSchedules = useCallback(async () => {
+    const res = await fetch('/api/compliance/schedules')
+    if (!res.ok) {
+      setError('Unable to load compliance schedules.')
+      return
+    }
+    setSchedules(await res.json())
+  }, [])
 
   useEffect(() => {
-    async function loadRecords() {
-      const res = await fetch('/api/compliance/records')
-      if (!res.ok) {
-        setError('Unable to load completed compliance records.')
-        return
-      }
-      setRecords(await res.json())
-    }
     loadRecords()
-  }, [])
+    loadSchedules()
+  }, [loadRecords, loadSchedules])
 
   useEffect(() => {
     setValues(emptyValues(selectedTemplate))
     setError('')
     setSuccess('')
   }, [selectedTemplate])
+
+  function startScheduledForm(schedule: ComplianceScheduleRow) {
+    setSelectedId(schedule.templateId)
+    setSelectedScheduleId(schedule.id)
+    setSuccess(`Completing scheduled task due ${formatDateTime(schedule.nextDueAt)}.`)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  async function createSchedule(event: React.FormEvent) {
+    event.preventDefault()
+    setError('')
+    setSuccess('')
+    const res = await fetch('/api/compliance/schedules', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(scheduleForm),
+    })
+    const data = await res.json()
+    if (!res.ok) {
+      setError(data.error || 'Unable to create compliance schedule.')
+      return
+    }
+    setSchedules([data, ...schedules])
+    setSuccess('Compliance schedule created.')
+  }
 
   async function saveRecord(event: React.FormEvent) {
     event.preventDefault()
@@ -213,7 +294,7 @@ export default function Compliance() {
     const res = await fetch('/api/compliance/records', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ templateId: selectedTemplate.id, values }),
+      body: JSON.stringify({ templateId: selectedTemplate.id, values, scheduleId: selectedScheduleId || undefined }),
     })
 
     setSaving(false)
@@ -224,6 +305,8 @@ export default function Compliance() {
     }
 
     setRecords([data, ...records])
+    await loadSchedules()
+    setSelectedScheduleId('')
     setValues(emptyValues(selectedTemplate))
     setSuccess('Compliance record saved.')
   }
@@ -248,7 +331,7 @@ export default function Compliance() {
           </div>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-4">
           <div className="rounded border bg-white p-4">
             <p className="text-sm text-gray-500">Documents</p>
             <p className="mt-2 text-3xl font-semibold">{complianceTemplates.length}</p>
@@ -261,7 +344,98 @@ export default function Compliance() {
             <p className="text-sm text-gray-500">Completed records</p>
             <p className="mt-2 text-3xl font-semibold">{records.length}</p>
           </div>
+          <div className="rounded border bg-white p-4">
+            <p className="text-sm text-gray-500">Due now</p>
+            <p className="mt-2 text-3xl font-semibold">{dueSchedules.length}</p>
+          </div>
         </div>
+
+        <section className="grid gap-6 xl:grid-cols-[1fr_360px]">
+          <div className="rounded border bg-white">
+            <div className="border-b p-4">
+              <h2 className="text-lg font-semibold">Compliance task schedule</h2>
+              <p className="mt-1 text-sm text-gray-600">Recurring documents due today or overdue appear first.</p>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="min-w-full text-left">
+                <thead className="bg-slate-100">
+                  <tr>
+                    <th className="p-3 text-sm font-semibold">Task</th>
+                    <th className="p-3 text-sm font-semibold">Frequency</th>
+                    <th className="p-3 text-sm font-semibold">Next due</th>
+                    <th className="p-3 text-sm font-semibold">Status</th>
+                    <th className="p-3 text-sm font-semibold">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {upcomingSchedules.length === 0 ? (
+                    <tr>
+                      <td className="p-6 text-sm text-gray-500" colSpan={5}>No recurring compliance tasks scheduled yet.</td>
+                    </tr>
+                  ) : (
+                    upcomingSchedules.map((schedule) => {
+                      const status = scheduleStatus(schedule)
+                      return (
+                        <tr key={schedule.id} className="border-t">
+                          <td className="p-3">
+                            <p className="font-medium text-gray-950">{schedule.title}</p>
+                            <p className="text-sm text-gray-500">{schedule.owner}</p>
+                          </td>
+                          <td className="p-3 text-gray-700">{schedule.frequency}</td>
+                          <td className="p-3 text-gray-700">{formatDateTime(schedule.nextDueAt)}</td>
+                          <td className="p-3">
+                            <span className={`rounded border px-2 py-1 text-xs font-medium ${statusClass(status)}`}>{status}</span>
+                          </td>
+                          <td className="p-3">
+                            <button onClick={() => startScheduledForm(schedule)} className="rounded bg-accent px-3 py-1 text-sm text-white">
+                              Complete
+                            </button>
+                          </td>
+                        </tr>
+                      )
+                    })
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <form onSubmit={createSchedule} className="rounded border bg-white p-4">
+            <h2 className="text-lg font-semibold">Create recurring task</h2>
+            <label className="mt-4 block">
+              <span className="text-sm font-medium text-gray-700">Document</span>
+              <select
+                className="mt-1 w-full rounded border p-2"
+                value={scheduleForm.templateId}
+                onChange={(event) => {
+                  const template = complianceTemplates.find((item) => item.id === event.target.value)
+                  setScheduleForm({ ...scheduleForm, templateId: event.target.value, owner: template?.owner || scheduleForm.owner })
+                }}
+              >
+                {complianceTemplates.map((template) => (
+                  <option key={template.id} value={template.id}>{template.title}</option>
+                ))}
+              </select>
+            </label>
+            <label className="mt-3 block">
+              <span className="text-sm font-medium text-gray-700">Frequency</span>
+              <select className="mt-1 w-full rounded border p-2" value={scheduleForm.frequency} onChange={(event) => setScheduleForm({ ...scheduleForm, frequency: event.target.value })}>
+                {frequencies.map((frequency) => (
+                  <option key={frequency} value={frequency}>{frequency}</option>
+                ))}
+              </select>
+            </label>
+            <label className="mt-3 block">
+              <span className="text-sm font-medium text-gray-700">Next due date</span>
+              <input className="mt-1 w-full rounded border p-2" type="date" value={scheduleForm.nextDueAt} onChange={(event) => setScheduleForm({ ...scheduleForm, nextDueAt: event.target.value })} required />
+            </label>
+            <label className="mt-3 block">
+              <span className="text-sm font-medium text-gray-700">Owner</span>
+              <input className="mt-1 w-full rounded border p-2" value={scheduleForm.owner} onChange={(event) => setScheduleForm({ ...scheduleForm, owner: event.target.value })} required />
+            </label>
+            <button className="mt-4 rounded bg-accent px-4 py-2 text-sm font-medium text-white">Create schedule</button>
+          </form>
+        </section>
 
         <section className="rounded border bg-white p-4">
           <div className="grid gap-3 lg:grid-cols-[1fr_220px]">
@@ -299,7 +473,10 @@ export default function Compliance() {
               filteredTemplates.map((template) => (
                 <button
                   key={template.id}
-                  onClick={() => setSelectedId(template.id)}
+                  onClick={() => {
+                    setSelectedId(template.id)
+                    setSelectedScheduleId('')
+                  }}
                   className={`w-full rounded border bg-white p-4 text-left transition ${
                     selectedTemplate.id === template.id ? 'border-blue-500 ring-2 ring-blue-100' : 'border-gray-200 hover:border-gray-300'
                   }`}
@@ -329,6 +506,7 @@ export default function Compliance() {
                   <p><span className="font-medium">Owner:</span> {selectedTemplate.owner}</p>
                   <p className="mt-1"><span className="font-medium">Cadence:</span> {selectedTemplate.cadence}</p>
                   <p className="mt-1"><span className="font-medium">Required:</span> {requiredFields} fields</p>
+                  {selectedScheduleId && <p className="mt-1"><span className="font-medium">Scheduled task:</span> Yes</p>}
                 </div>
               </div>
             </div>

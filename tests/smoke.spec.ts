@@ -90,9 +90,17 @@ test.describe('owner workflow', () => {
   test('fills and saves a compliance document', async ({ page }) => {
     await page.goto('/compliance')
     await expectHeading(page, 'Compliance documents')
-    await page.getByRole('button', { name: /Fridge \/ Freezer Temperature Log/ }).click()
+    const scheduleForm = page.locator('form').first()
+    await scheduleForm.locator('select').nth(0).selectOption('temperature-log')
+    await scheduleForm.locator('select').nth(1).selectOption('Daily')
+    await scheduleForm.locator('input[type="date"]').fill('2026-05-31')
+    await scheduleForm.locator('input').last().fill('QA Schedule Owner')
+    await page.getByRole('button', { name: 'Create schedule' }).click()
+    await expect(page.getByText('Compliance schedule created.')).toBeVisible()
+    await expect(page.getByText('Due today').first()).toBeVisible()
+    await page.locator('tr').filter({ hasText: 'QA Schedule Owner' }).filter({ hasText: 'Due today' }).getByRole('button', { name: 'Complete' }).click()
 
-    const form = page.locator('form')
+    const form = page.locator('form').nth(1)
     await form.locator('input[type="date"]').fill('2026-05-31')
     await form.locator('input[type="time"]').fill('09:30')
     await form.locator('input[type="text"]').nth(0).fill('Walk-in fridge 1')
@@ -103,6 +111,7 @@ test.describe('owner workflow', () => {
     await page.getByRole('button', { name: 'Save completed form' }).click()
 
     await expect(page.getByText('Compliance record saved.')).toBeVisible()
+    await expect(page.getByText('Upcoming').first()).toBeVisible()
     await expect(page.getByRole('cell', { name: 'Fridge / Freezer Temperature Log' }).first()).toBeVisible()
     await page.getByRole('link', { name: 'View' }).first().click()
     await expectHeading(page, 'Fridge / Freezer Temperature Log')

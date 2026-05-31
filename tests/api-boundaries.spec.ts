@@ -244,6 +244,56 @@ test.describe('protected API boundaries', () => {
     await tenantPage.close()
   })
 
+  test('creates compliance schedules and rolls them forward on completion', async ({ browser }) => {
+    const ownerPage = await browser.newPage()
+    const tenantPage = await browser.newPage()
+
+    await login(ownerPage, owner)
+    const scheduleRes = await ownerPage.request.post('/api/compliance/schedules', {
+      data: {
+        templateId: 'temperature-log',
+        frequency: 'Weekly',
+        nextDueAt: '2026-05-31',
+        owner: 'QA Schedule Owner',
+      },
+    })
+    expect(scheduleRes.status()).toBe(201)
+    const schedule = await scheduleRes.json()
+
+    const completeRes = await ownerPage.request.post('/api/compliance/records', {
+      data: {
+        templateId: 'temperature-log',
+        scheduleId: schedule.id,
+        values: {
+          Date: '2026-05-31',
+          Time: '09:30',
+          'Equipment name / ID': 'Scheduled fridge',
+          'Equipment type': 'Fridge',
+          'Temperature reading': '3',
+          'Within accepted range': true,
+          'Corrective action if outside range': '',
+          'Checked by': 'Schedule QA',
+        },
+      },
+    })
+    expect(completeRes.status()).toBe(201)
+
+    const schedules = await ownerPage.request.get('/api/compliance/schedules')
+    expect(schedules.status()).toBe(200)
+    const updatedSchedule = (await schedules.json()).find((item: { id: string }) => item.id === schedule.id)
+    expect(updatedSchedule.lastCompletedAt).toBeTruthy()
+    expect(new Date(updatedSchedule.nextDueAt).getTime()).toBeGreaterThan(new Date(schedule.nextDueAt).getTime())
+
+    const tenant = await registerOwner(tenantPage)
+    await login(tenantPage, tenant)
+    const tenantSchedules = await tenantPage.request.get('/api/compliance/schedules')
+    expect(tenantSchedules.status()).toBe(200)
+    expect((await tenantSchedules.json()).some((item: { id: string }) => item.id === schedule.id)).toBe(false)
+
+    await ownerPage.close()
+    await tenantPage.close()
+  })
+
   test('limits team management and notification preferences to owners', async ({ page }) => {
     await login(page, staff)
     const staffCreateTeamUser = await page.request.post('/api/team', {

@@ -30,6 +30,8 @@ Date: 2026-05-31
 - `npm.cmd run test:smoke` passed with the local PostgreSQL service: 18 tests, 18 passed.
 - Added fillable compliance records, saved-record detail pages and compliance API tenant-scope coverage.
 - `npm.cmd run test:smoke` passed after compliance record coverage was added: 20 tests, 20 passed.
+- Added recurring compliance task schedules with due status, scheduled completion and tenant-scope API coverage.
+- `npm.cmd run test:smoke` passed after compliance schedule coverage was added: 21 tests, 21 passed.
 
 ## Current Local Setup
 

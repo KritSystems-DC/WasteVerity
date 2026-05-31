@@ -80,6 +80,7 @@ model Business {
   adminNotes            AdminNote[]
   integrations          Integration[]
   complianceRecords     ComplianceRecord[]
+  complianceSchedules   ComplianceSchedule[]
 
   @@index([ownerId])
   @@index([status])
@@ -499,6 +500,8 @@ model ComplianceRecord {
   owner                 String
   purpose               String
   values                Json
+  scheduleId            String?
+  schedule              ComplianceSchedule? @relation(fields: [scheduleId], references: [id], onDelete: SetNull)
   completedByUserId     String
   completedByUser       User       @relation("completedByUser", fields: [completedByUserId], references: [id], onDelete: Cascade)
   createdAt             DateTime   @default(now())
@@ -506,6 +509,30 @@ model ComplianceRecord {
 
   @@index([businessId])
   @@index([templateId])
+  @@index([scheduleId])
   @@index([category])
   @@index([createdAt])
+}
+
+model ComplianceSchedule {
+  id                    String     @id @default(cuid())
+  businessId            String
+  business              Business   @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  templateId            String
+  title                 String
+  category              String
+  frequency             String
+  owner                 String
+  nextDueAt             DateTime
+  lastCompletedAt       DateTime?
+  isActive              Boolean    @default(true)
+  records               ComplianceRecord[]
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime   @updatedAt
+
+  @@index([businessId])
+  @@index([templateId])
+  @@index([category])
+  @@index([nextDueAt])
+  @@index([isActive])
 }

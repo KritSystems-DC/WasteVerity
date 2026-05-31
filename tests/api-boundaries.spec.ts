@@ -49,19 +49,27 @@ test.describe('protected API boundaries', () => {
     expect(adminStats.headers().location).toBe('/login?callbackUrl=%2Fapi%2Fadmin%2Fstats')
   })
 
-  test('limits admin APIs to admin users', async ({ page }) => {
-    await login(page, staff)
-    const staffStats = await page.request.get('/api/admin/stats')
+  test('limits admin APIs to admin users', async ({ browser }) => {
+    const staffPage = await browser.newPage()
+    const ownerPage = await browser.newPage()
+    const adminPage = await browser.newPage()
+
+    await login(staffPage, staff)
+    const staffStats = await staffPage.request.get('/api/admin/stats')
     expect(staffStats.status()).toBe(403)
 
-    await login(page, owner)
-    const ownerStats = await page.request.get('/api/admin/stats')
+    await login(ownerPage, owner)
+    const ownerStats = await ownerPage.request.get('/api/admin/stats')
     expect(ownerStats.status()).toBe(403)
 
-    await login(page, admin, '/admin')
-    const adminStats = await page.request.get('/api/admin/stats')
+    await login(adminPage, admin, '/admin')
+    const adminStats = await adminPage.request.get('/api/admin/stats')
     expect(adminStats.status()).toBe(200)
     await expect(adminStats).toBeOK()
+
+    await staffPage.close()
+    await ownerPage.close()
+    await adminPage.close()
   })
 
   test('blocks admin users from business-context APIs', async ({ page }) => {

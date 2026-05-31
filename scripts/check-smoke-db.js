@@ -1,4 +1,7 @@
 const { PrismaClient } = require('@prisma/client')
+const { loadEnvConfig } = require('@next/env')
+
+loadEnvConfig(process.cwd())
 
 async function main() {
   if (!process.env.DATABASE_URL) {

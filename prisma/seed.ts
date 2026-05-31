@@ -1,6 +1,10 @@
 import { PrismaClient } from '@prisma/client'
 import { Decimal } from '@prisma/client/runtime/library'
 import bcrypt from 'bcryptjs'
+import { loadEnvConfig } from '@next/env'
+
+loadEnvConfig(process.cwd())
+
 const prisma = new PrismaClient()
 
 async function main() {

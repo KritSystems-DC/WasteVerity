@@ -6,15 +6,24 @@ const admin = { email: 'admin@wasteverity.demo', password: 'Password123!' }
 
 async function login(page: Page, account: { email: string; password: string }, callbackUrl = '/dashboard') {
   await page.context().clearCookies()
-  await page.goto(`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`)
-  await page.locator('input').nth(0).fill(account.email)
-  await page.locator('input').nth(1).fill(account.password)
-  await page.getByRole('button', { name: 'Sign in' }).click()
-  await page.waitForURL(`**${callbackUrl}`)
+  const csrf = await page.request.get('/api/auth/csrf')
+  expect(csrf.status()).toBe(200)
+  const { csrfToken } = await csrf.json()
+  const auth = await page.request.post('/api/auth/callback/credentials?json=true', {
+    form: {
+      csrfToken,
+      email: account.email,
+      password: account.password,
+      callbackUrl,
+      json: 'true',
+    },
+  })
+  expect(auth.status()).toBe(200)
+  await page.goto(callbackUrl)
 }
 
 async function expectHeading(page: Page, name: string) {
-  await expect(page.getByRole('heading', { name })).toBeVisible()
+  await expect(page.getByRole('heading', { name, exact: true })).toBeVisible()
 }
 
 test.describe('authentication and role access', () => {
@@ -53,7 +62,7 @@ test.describe('authentication and role access', () => {
 
     await login(page, admin, '/admin')
     await page.goto('/admin')
-    await expectHeading(page, 'Admin')
+    await expectHeading(page, 'Admin Dashboard')
 
     await page.goto('/dashboard')
     await expect(page).toHaveURL(/\/login\?callbackUrl=%2Fdashboard$/)
@@ -222,7 +231,7 @@ test.describe('admin workflow', () => {
   test('admin pages load', async ({ page }) => {
     await login(page, admin, '/admin')
     await page.goto('/admin')
-    await expectHeading(page, 'Admin')
+    await expectHeading(page, 'Admin Dashboard')
 
     for (const path of ['/admin/businesses', '/admin/users', '/admin/subscriptions', '/admin/logs', '/admin/notes']) {
       await page.goto(path)

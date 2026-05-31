@@ -47,17 +47,16 @@ The remaining work is split into two tracks:
 
 ### Verified Locally
 
-- [x] `npm.cmd run test:smoke` passes 14/14 tests.
+- [x] `npm.cmd run test:smoke` passes 18/18 tests.
 - [x] `npx.cmd tsc --noEmit` passes.
 - [x] `npm.cmd run build` passes on Next `15.5.18`.
 - [x] `npm.cmd audit --json` reports 0 vulnerabilities.
 - [x] Compiled app route checks previously confirmed public/protected route behavior.
-- [ ] `npm.cmd run test:smoke` is blocked in this shell because Docker is unavailable and PostgreSQL is not reachable at `127.0.0.1:5432`.
 
 ### Current Local Setup
 
 - Local app: `http://localhost:3000`
-- Demo database: Docker container `wasteverity-postgres`
+- Demo database: local PostgreSQL 16 service
 - Local database URL: `postgresql://postgres:postgres@127.0.0.1:5432/wasteverity?schema=public`
 - Demo owner: `owner@wasteverity.demo` / `Password123!`
 - Demo staff: `staff@wasteverity.demo` / `Password123!`
@@ -69,8 +68,7 @@ The remaining work is split into two tracks:
 - [ ] Create the first real owner account in production through `/register`; do not run demo seed in production.
 - [ ] Run `npm run admin:create` against production when the real admin email/password are available.
 - [ ] Complete one end-to-end production billing test in Stripe live mode or a launch-equivalent staging environment.
-- [ ] Re-run `npm.cmd run test:smoke` once local PostgreSQL is running and seeded.
-- [ ] Add deeper report-specific tenant-isolation tests once the local test database is available.
+- [ ] Add deeper report-specific tenant-isolation tests.
 
 ## Git / Deployment Work
 

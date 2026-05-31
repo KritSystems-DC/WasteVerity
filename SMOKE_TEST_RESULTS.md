@@ -1,6 +1,6 @@
 # Smoke Test Results
 
-Date: 2026-05-31
+Date: 2026-05-31 22:15:01 +01:00
 
 ## Completed
 
@@ -32,6 +32,14 @@ Date: 2026-05-31
 - `npm.cmd run test:smoke` passed after compliance record coverage was added: 20 tests, 20 passed.
 - Added recurring compliance task schedules with due status, scheduled completion and tenant-scope API coverage.
 - `npm.cmd run test:smoke` passed after compliance schedule coverage was added: 21 tests, 21 passed.
+- Completed the Day 3 authenticated app surface review across phone, tablet/iPad and desktop widths.
+- Fixed responsive app shell issues by truncating long header names/emails and preventing the sign-out action from being pushed off-screen.
+- Fixed the admin users table by adding the same horizontal scroll wrapper used by the other dense app tables.
+- Added `tests/responsive.spec.ts` for authenticated app responsive coverage across dashboard, stock, suppliers, compliance, reports and settings.
+- `npx.cmd playwright test tests/responsive.spec.ts` passed: 1 test, 1 passed.
+- `npm.cmd run test:smoke` passed with responsive coverage included: 22 tests, 22 passed.
+- `npm.cmd run lint` passed.
+- `npx.cmd tsc --noEmit` passed.
 
 ## Current Local Setup
 
@@ -42,6 +50,15 @@ DATABASE_URL=postgresql://postgres:postgres@127.0.0.1:5432/wasteverity?schema=pu
 ```
 
 The dev server is started by Playwright when running `npm.cmd run test:smoke`.
+
+For local smoke runs, set auth env alongside the database URL so middleware and NextAuth share the same JWT secret:
+
+```powershell
+$env:DATABASE_URL='postgresql://postgres:postgres@127.0.0.1:5432/wasteverity?schema=public'
+$env:NEXTAUTH_SECRET='wasteverity-local-smoke-secret'
+$env:NEXTAUTH_URL='http://localhost:3000'
+npm.cmd run test:smoke
+```
 
 ## Remaining Gaps
 

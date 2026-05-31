@@ -1,13 +1,12 @@
 # WasteVerity 30-Day Launch Checklist
 
-This checklist turns the WasteVerity domain, deployment, and outreach plan into daily execution tasks. The goal is to launch the site, start outreach, book demos, and convert the first pilot customers within 30 days.
+This checklist turns the WasteVerity app build, deployment, and later go-to-market plan into daily execution tasks. The first priority is completing the usable app for phone, tablet/iPad, and desktop before buying the domain or starting full launch activity.
 
-## Week 1: Foundation and Launch
+## Week 1: App Foundation
 
-### Day 1: Domain and Positioning
-- [x] Choose the final brand domain: `wasteverity.co.uk`.
-- [ ] Register the domain for 1-3 years.
-- [ ] Enable auto-renewal and WHOIS privacy.
+### Day 1: Product Positioning
+- [x] Park the intended final brand domain: `wasteverity.co.uk`.
+- [ ] Confirm the app is the primary product surface and the website is only the later sales and engagement surface.
 - [ ] Write the one-line positioning statement.
 - [ ] Confirm the top three target segments: care homes, hospitals, and regulated food service.
 
@@ -15,24 +14,25 @@ Project:
 - [ ] Create a short brand positioning doc with audience, pain points, offer, and proof points.
 
 ### Day 2: Deployment Setup
-- [ ] Push the app repo to GitHub if not already hosted.
-- [ ] Create a Vercel account or log in.
-- [ ] Connect the GitHub repo to Vercel.
-- [ ] Deploy the app.
-- [ ] Confirm the landing page loads correctly.
+- [x] Push the app repo to GitHub if not already hosted.
+- [x] Create a Vercel account or log in.
+- [x] Connect the GitHub repo to Vercel.
+- [x] Deploy the app.
+- [x] Confirm the landing page loads correctly.
 
 Project:
 - [x] Document the deployment URL, production URL, and owner login details in a private ops note.
 
-### Day 3: DNS and Email
-- [ ] Add the domain to Vercel.
-- [ ] Configure DNS records.
-- [ ] Create `hello@wasteverity.co.uk`.
-- [ ] Set SPF, DKIM, and DMARC records if using a custom email provider.
-- [ ] Send test emails to Gmail and Outlook accounts.
+### Day 3: App Surface Review
+- [x] Confirm the authenticated app routes are prioritised over public website polish.
+- [x] Review the app on phone width.
+- [x] Review the app on tablet/iPad width.
+- [x] Review the app on desktop width.
+- [x] Log any layout, navigation, table, or form issues before launch work resumes.
 
 Project:
 - [x] Create a simple email signature with name, role, phone, and website.
+- [x] Add automated responsive coverage for authenticated app routes at phone, tablet/iPad and desktop widths.
 
 ### Day 4: Landing Page Conversion
 - [ ] Review the landing page headline and CTA.
@@ -251,15 +251,17 @@ Project:
 Project:
 - [ ] Run a smoke test and log any issues.
 
-### Day 25: Final Follow-Up
-- [ ] Send Email 5 to early non-responders.
-- [ ] Move dead prospects to a nurture list.
-- [ ] Follow up with warm replies.
-- [ ] Revisit all "send info" replies.
-- [ ] Push for demo or pilot next step.
+### Day 25: Domain, DNS and Email Setup
+- [ ] Register `wasteverity.co.uk` for 1-3 years only after the app is ready for real users.
+- [ ] Enable auto-renewal and WHOIS privacy.
+- [ ] Add the domain to Vercel.
+- [ ] Configure DNS records.
+- [ ] Create `hello@wasteverity.co.uk`.
+- [ ] Set SPF, DKIM, and DMARC records if using a custom email provider.
+- [ ] Send test emails to Gmail and Outlook accounts.
 
 Project:
-- [ ] Create a monthly nurture email for cold but relevant prospects.
+- [ ] Confirm the production app URL, website URL, and owner login details are updated in the private ops note.
 
 ### Day 26: Sales Materials
 - [ ] Create a one-page buyer summary.

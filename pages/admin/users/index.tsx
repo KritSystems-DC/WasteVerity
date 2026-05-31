@@ -42,7 +42,7 @@ export default function AdminUsersPage() {
         {loading ? (
           <div className="p-4 bg-white border rounded">Loading users…</div>
         ) : (
-          <div className="bg-white border rounded">
+          <div className="overflow-x-auto bg-white border rounded">
             <table className="min-w-full table-auto">
               <thead>
                 <tr className="text-left">

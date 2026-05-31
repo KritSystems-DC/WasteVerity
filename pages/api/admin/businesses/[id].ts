@@ -15,6 +15,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     include: {
       subscriptions: true,
       users: { select: { id: true, name: true, email: true, role: true } },
+      automationLogs: {
+        orderBy: { createdAt: 'desc' },
+        take: 25,
+      },
     },
   })
   if (!business) return res.status(404).json({ error: 'Not found' })

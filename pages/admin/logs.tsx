@@ -16,16 +16,23 @@ interface LogRow {
 export default function AdminLogs() {
   const [logs, setLogs] = useState<LogRow[]>([])
   const [error, setError] = useState('')
+  const [filters, setFilters] = useState({ businessId: '', type: '', status: '' })
+
+  async function load(nextFilters = filters) {
+    const params = new URLSearchParams()
+    if (nextFilters.businessId) params.set('businessId', nextFilters.businessId)
+    if (nextFilters.type) params.set('type', nextFilters.type)
+    if (nextFilters.status) params.set('status', nextFilters.status)
+    const res = await fetch(`/api/admin/logs${params.toString() ? `?${params}` : ''}`)
+    if (!res.ok) {
+      setError('Failed to load logs.')
+      return
+    }
+    setError('')
+    setLogs(await res.json())
+  }
 
   useEffect(() => {
-    async function load() {
-      const res = await fetch('/api/admin/logs')
-      if (!res.ok) {
-        setError('Failed to load logs.')
-        return
-      }
-      setLogs(await res.json())
-    }
     load()
   }, [])
 
@@ -38,6 +45,18 @@ export default function AdminLogs() {
         </div>
 
         {error && <div className="text-red-600">{error}</div>}
+
+        <div className="grid gap-3 bg-white border rounded p-4 md:grid-cols-4">
+          <input className="border rounded px-3 py-2" placeholder="Business ID" value={filters.businessId} onChange={(event) => setFilters({ ...filters, businessId: event.target.value })} />
+          <input className="border rounded px-3 py-2" placeholder="Type" value={filters.type} onChange={(event) => setFilters({ ...filters, type: event.target.value })} />
+          <select className="border rounded px-3 py-2" value={filters.status} onChange={(event) => setFilters({ ...filters, status: event.target.value })}>
+            <option value="">All statuses</option>
+            <option value="SUCCESS">SUCCESS</option>
+            <option value="FAILED">FAILED</option>
+            <option value="INFO">INFO</option>
+          </select>
+          <button className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700" onClick={() => load()}>Apply filters</button>
+        </div>
 
         <div className="overflow-x-auto bg-white border rounded">
           <table className="min-w-full divide-y divide-gray-200">

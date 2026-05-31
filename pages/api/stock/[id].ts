@@ -22,6 +22,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (body.reorderAmount != null && body.reorderAmount < 0) return res.status(400).json({ error: 'reorderAmount cannot be negative' })
     if (body.costPerUnit != null && body.costPerUnit < 0) return res.status(400).json({ error: 'costPerUnit cannot be negative' })
     if (body.sellingPrice != null && body.sellingPrice < 0) return res.status(400).json({ error: 'sellingPrice cannot be negative' })
+    if (body.supplierId) {
+      const supplier = await prisma.supplier.findUnique({ where: { id: body.supplierId } })
+      if (!supplier || supplier.businessId !== user.businessId) return res.status(400).json({ error: 'Invalid supplier' })
+    }
 
     const updated = await prisma.stockItem.update({
       where: { id },

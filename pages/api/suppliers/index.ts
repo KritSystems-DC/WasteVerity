@@ -16,6 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (method === 'POST') {
     if (!user.businessId) return res.status(403).json({ error: 'Unauthorized' })
+    if (user.role === 'STAFF') return res.status(403).json({ error: 'Forbidden' })
     const { name, contactName, email, phone, website, address, notes } = req.body
     const validation = validateSupplier(req.body)
     if (!validation.valid) return res.status(400).json({ errors: validation.errors })

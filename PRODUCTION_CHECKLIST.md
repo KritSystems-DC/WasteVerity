@@ -21,10 +21,10 @@ openssl rand -base64 32
 - [ ] Provision a managed PostgreSQL database with backups, point-in-time restore and TLS enabled.
 - [ ] Set `DATABASE_URL` to the production database connection string.
 - [ ] Confirm the database user has the permissions needed for migrations and runtime reads/writes.
-- [ ] Run Prisma generation during build or release:
+- [ ] Confirm Prisma generation runs during build. The production build script already runs `prisma generate` before `next build`:
 
 ```bash
-npm run prisma:generate
+npm run build
 ```
 
 - [ ] Apply committed migrations during deployment:
@@ -105,6 +105,12 @@ https://your-production-domain.com/api/stripe/webhook
 
 ```bash
 npm run test:smoke
+```
+
+- [ ] Confirm dependency audit is clean before release:
+
+```bash
+npm audit
 ```
 
 - [ ] Confirm staff, owner and admin role boundaries on protected pages and APIs.

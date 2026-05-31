@@ -22,6 +22,22 @@ async function login(page: Page, account: { email: string; password: string }, c
   await page.goto(callbackUrl)
 }
 
+async function registerOwner(page: Page) {
+  const timestamp = Date.now()
+  const account = { email: `tenant-${timestamp}@wasteverity.test`, password: 'Password123!' }
+  const register = await page.request.post('/api/auth/register', {
+    data: {
+      name: 'Tenant Owner',
+      email: account.email,
+      password: account.password,
+      businessName: `Tenant Business ${timestamp}`,
+      businessType: 'Cafe',
+    },
+  })
+  expect(register.status()).toBe(201)
+  return account
+}
+
 test.describe('protected API boundaries', () => {
   test('redirects anonymous protected API requests to login', async ({ request }) => {
     const stock = await request.get('/api/stock', { maxRedirects: 0 })
@@ -83,5 +99,141 @@ test.describe('protected API boundaries', () => {
 
     await ownerPage.close()
     await staffPage.close()
+  })
+
+  test('validates core API inputs', async ({ page }) => {
+    await login(page, owner)
+
+    const stock = await page.request.post('/api/stock', {
+      data: { name: '', currentQuantity: -1, minimumQuantity: -1, reorderAmount: 1, costPerUnit: -1 },
+    })
+    expect(stock.status()).toBe(400)
+
+    const supplier = await page.request.post('/api/suppliers', {
+      data: { name: '', email: 'not-an-email' },
+    })
+    expect(supplier.status()).toBe(400)
+
+    const waste = await page.request.post('/api/waste', {
+      data: { stockItemId: '', quantity: 0 },
+    })
+    expect(waste.status()).toBe(400)
+
+    const request = await page.request.post('/api/staff-requests', {
+      data: { itemName: 'Invalid request', requestedQuantity: 0 },
+    })
+    expect(request.status()).toBe(400)
+  })
+
+  test('keeps business data isolated across tenants', async ({ browser }) => {
+    const ownerPage = await browser.newPage()
+    const tenantPage = await browser.newPage()
+
+    await login(ownerPage, owner)
+    const ownerSupplierRes = await ownerPage.request.post('/api/suppliers', {
+      data: { name: `Tenant Boundary Supplier ${Date.now()}`, email: 'tenant-boundary@example.com' },
+    })
+    expect(ownerSupplierRes.status()).toBe(201)
+    const ownerSupplier = await ownerSupplierRes.json()
+
+    const ownerStockRes = await ownerPage.request.post('/api/stock', {
+      data: {
+        name: `Tenant Boundary Stock ${Date.now()}`,
+        currentQuantity: 5,
+        minimumQuantity: 1,
+        reorderAmount: 5,
+        unit: 'item',
+        costPerUnit: 1,
+      },
+    })
+    expect(ownerStockRes.status()).toBe(201)
+    const ownerStock = await ownerStockRes.json()
+
+    const tenant = await registerOwner(tenantPage)
+    await login(tenantPage, tenant)
+    const tenantStockRes = await tenantPage.request.post('/api/stock', {
+      data: {
+        name: `Tenant Own Stock ${Date.now()}`,
+        currentQuantity: 5,
+        minimumQuantity: 1,
+        reorderAmount: 5,
+        unit: 'item',
+        costPerUnit: 1,
+      },
+    })
+    expect(tenantStockRes.status()).toBe(201)
+    const tenantStock = await tenantStockRes.json()
+
+    const crossRead = await tenantPage.request.get(`/api/stock/${ownerStock.id}`)
+    expect(crossRead.status()).toBe(404)
+
+    const crossWaste = await tenantPage.request.post('/api/waste', {
+      data: { stockItemId: ownerStock.id, quantity: 1, reason: 'cross tenant attempt' },
+    })
+    expect(crossWaste.status()).toBe(404)
+
+    const crossSupplierUpdate = await tenantPage.request.put(`/api/stock/${tenantStock.id}`, {
+      data: {
+        name: tenantStock.name,
+        currentQuantity: tenantStock.currentQuantity,
+        minimumQuantity: tenantStock.minimumQuantity,
+        reorderAmount: tenantStock.reorderAmount,
+        unit: tenantStock.unit,
+        costPerUnit: Number(tenantStock.costPerUnit),
+        supplierId: ownerSupplier.id,
+        status: tenantStock.status,
+      },
+    })
+    expect(crossSupplierUpdate.status()).toBe(400)
+    await expect(await crossSupplierUpdate.json()).toMatchObject({ error: 'Invalid supplier' })
+
+    await ownerPage.close()
+    await tenantPage.close()
+  })
+
+  test('limits team management and notification preferences to owners', async ({ page }) => {
+    await login(page, staff)
+    const staffCreateTeamUser = await page.request.post('/api/team', {
+      data: {
+        name: 'Staff Created User',
+        email: `staff-created-${Date.now()}@wasteverity.test`,
+        password: 'Password123!',
+        role: 'STAFF',
+      },
+    })
+    expect(staffCreateTeamUser.status()).toBe(403)
+
+    const staffNotifications = await page.request.put('/api/notifications/preferences', {
+      data: { lowStockAlertEnabled: true, emailEnabled: true, smsEnabled: false, whatsappEnabled: false },
+    })
+    expect(staffNotifications.status()).toBe(403)
+
+    await login(page, owner)
+    const createdTeamUser = await page.request.post('/api/team', {
+      data: {
+        name: 'QA Team User',
+        email: `qa-team-${Date.now()}@wasteverity.test`,
+        password: 'Password123!',
+        role: 'STAFF',
+      },
+    })
+    expect(createdTeamUser.status()).toBe(201)
+
+    const saveNotifications = await page.request.put('/api/notifications/preferences', {
+      data: {
+        lowStockAlertEnabled: true,
+        emailEnabled: true,
+        smsEnabled: false,
+        whatsappEnabled: false,
+        emailFrom: 'ops@wasteverity.test',
+      },
+    })
+    expect(saveNotifications.status()).toBe(200)
+  })
+
+  test('reports missing Stripe config for customer portal', async ({ page }) => {
+    await login(page, owner)
+    const portal = await page.request.post('/api/stripe/create-portal-session')
+    expect([501, 404]).toContain(portal.status())
   })
 })

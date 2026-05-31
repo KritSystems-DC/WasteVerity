@@ -42,6 +42,21 @@ export default function Billing() {
     }
   }
 
+  async function handlePortal() {
+    setLoading(true)
+    setMessage('')
+    const res = await fetch('/api/stripe/create-portal-session', { method: 'POST' })
+    const data = await res.json()
+    setLoading(false)
+    if (!res.ok) {
+      setMessage(data.error || 'Unable to open billing portal.')
+      return
+    }
+    if (data.url) {
+      window.location.href = data.url
+    }
+  }
+
   return (
     <AppShell>
       <div className="space-y-6">
@@ -66,15 +81,24 @@ export default function Billing() {
           </div>
 
           <div className="bg-white border rounded p-6 space-y-4">
-            <h2 className="text-lg font-semibold">Stripe checkout</h2>
-            <p className="text-gray-700">Start checkout to activate or update the business subscription.</p>
-            <button
-              onClick={handleCheckout}
-              className="inline-flex items-center px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 disabled:bg-gray-400"
-              disabled={loading}
-            >
-              {loading ? 'Redirecting...' : 'Checkout with Stripe'}
-            </button>
+            <h2 className="text-lg font-semibold">Stripe billing</h2>
+            <p className="text-gray-700">Start checkout to activate a subscription or open the customer portal for an existing Stripe customer.</p>
+            <div className="flex flex-wrap gap-3">
+              <button
+                onClick={handleCheckout}
+                className="inline-flex items-center px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 disabled:bg-gray-400"
+                disabled={loading}
+              >
+                {loading ? 'Redirecting...' : 'Checkout with Stripe'}
+              </button>
+              <button
+                onClick={handlePortal}
+                className="inline-flex items-center px-4 py-2 rounded border border-blue-600 text-blue-700 hover:bg-blue-50 disabled:bg-gray-100"
+                disabled={loading}
+              >
+                Open customer portal
+              </button>
+            </div>
             {message && <p className="text-sm text-red-600">{message}</p>}
           </div>
         </div>

@@ -19,16 +19,22 @@ interface BusinessRow {
 export default function AdminBusinesses() {
   const [businesses, setBusinesses] = useState<BusinessRow[]>([])
   const [error, setError] = useState('')
+  const [filters, setFilters] = useState({ q: '', status: '' })
+
+  async function loadBusinesses() {
+    const params = new URLSearchParams()
+    if (filters.q) params.set('q', filters.q)
+    if (filters.status) params.set('status', filters.status)
+    const res = await fetch(`/api/admin/businesses${params.toString() ? `?${params}` : ''}`)
+    if (!res.ok) {
+      setError('Unable to load business list.')
+      return
+    }
+    setError('')
+    setBusinesses(await res.json())
+  }
 
   useEffect(() => {
-    async function loadBusinesses() {
-      const res = await fetch('/api/admin/businesses')
-      if (!res.ok) {
-        setError('Unable to load business list.')
-        return
-      }
-      setBusinesses(await res.json())
-    }
     loadBusinesses()
   }, [])
 
@@ -41,6 +47,17 @@ export default function AdminBusinesses() {
         </div>
 
         {error && <div className="text-red-600">{error}</div>}
+
+        <div className="grid gap-3 bg-white border rounded p-4 md:grid-cols-3">
+          <input className="border rounded px-3 py-2" placeholder="Search name or owner email" value={filters.q} onChange={(event) => setFilters({ ...filters, q: event.target.value })} />
+          <select className="border rounded px-3 py-2" value={filters.status} onChange={(event) => setFilters({ ...filters, status: event.target.value })}>
+            <option value="">All statuses</option>
+            <option value="ACTIVE">ACTIVE</option>
+            <option value="DISABLED">DISABLED</option>
+            <option value="SETUP_REQUIRED">SETUP_REQUIRED</option>
+          </select>
+          <button className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700" onClick={loadBusinesses}>Apply filters</button>
+        </div>
 
         <div className="overflow-x-auto bg-white border rounded">
           <table className="min-w-full divide-y divide-gray-200">

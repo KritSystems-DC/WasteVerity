@@ -64,6 +64,28 @@ export default function AdminBusinessDetail() {
                 <p className="mt-3 text-gray-500">No subscription data available.</p>
               )}
             </div>
+            <div className="bg-white border rounded p-6">
+              <h2 className="text-lg font-semibold">Users</h2>
+              <div className="mt-3 space-y-2">
+                {business.users?.map((user: any) => (
+                  <div key={user.id} className="flex items-center justify-between border rounded p-3 text-sm">
+                    <span>{user.name} ({user.email})</span>
+                    <span>{user.role}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="bg-white border rounded p-6">
+              <h2 className="text-lg font-semibold">Recent logs</h2>
+              <div className="mt-3 space-y-2">
+                {business.automationLogs?.map((log: any) => (
+                  <div key={log.id} className="border rounded p-3 text-sm">
+                    <p className="font-medium">{log.title}</p>
+                    <p className="text-gray-600">{log.type} / {log.status}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         )}
       </div>

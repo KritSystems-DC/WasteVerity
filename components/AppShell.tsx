@@ -24,8 +24,9 @@ export function AppShell({ children }: AppShellProps) {
         <NavLink href="/reports">Reports</NavLink>
         <NavLink href="/automation-logs">Automation logs</NavLink>
         <NavLink href="/billing">Billing</NavLink>
+        {role === 'OWNER' && <NavLink href="/team">Team</NavLink>}
         <NavLink href="/settings">Settings</NavLink>
-        {(role === 'ADMIN' || role === 'OWNER') && <NavLink href="/admin">Admin</NavLink>}
+        {role === 'ADMIN' && <NavLink href="/admin">Admin</NavLink>}
       </Sidebar>
       <div className="md:pl-72">
         <Header />

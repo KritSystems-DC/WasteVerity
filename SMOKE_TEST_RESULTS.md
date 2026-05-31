@@ -1,6 +1,6 @@
 # Smoke Test Results
 
-Date: 2026-05-29
+Date: 2026-05-31
 
 ## Completed
 
@@ -23,6 +23,10 @@ Date: 2026-05-29
   - `/dashboard` returned `307`
   - `/admin` returned `307`
   - `/api/auth/providers` returned `200`
+- Patched Next.js to `15.5.18` and confirmed `npm.cmd run build` passes without the previous Edge Runtime warning.
+- `npm.cmd audit --json` reports 0 vulnerabilities after Next/PostCSS updates and dependency overrides.
+- Added smoke/API coverage for team management, notification preferences, Stripe portal config handling, validation failures and tenant isolation.
+- Latest `npm.cmd run test:smoke` could not complete in this shell because Docker is unavailable and PostgreSQL is not reachable at `127.0.0.1:5432`.
 
 ## Current Local Setup
 
@@ -37,5 +41,6 @@ The dev server is running at `http://localhost:3000`.
 ## Remaining Gaps
 
 - Stripe checkout still needs real `STRIPE_SECRET_KEY`, `STRIPE_PRICE_ID` and `STRIPE_WEBHOOK_SECRET`.
-- Public Terms and Privacy copy are placeholders.
-- Continue expanding API coverage for validation errors and tenant isolation edge cases.
+- Public Terms and Privacy copy still needs final company details and legal sign-off.
+- Re-run the smoke suite once the local PostgreSQL service is available.
+- Continue expanding report-specific tenant isolation edge cases.

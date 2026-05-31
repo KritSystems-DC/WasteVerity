@@ -34,3 +34,4 @@ Thumbs.db
 
 # local archives
 *.zip
+.vercel

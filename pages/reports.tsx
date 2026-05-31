@@ -78,11 +78,13 @@ export default function Reports({
           <div className="bg-white border rounded p-6 space-y-3">
             <h2 className="text-lg font-semibold">Stock CSV</h2>
             <p className="text-sm text-gray-600">Download all stock items with quantities, costs, expiry dates and reorder settings.</p>
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
             <a href="/api/export/stock" className="inline-flex rounded bg-accent px-4 py-2 text-white">Download stock CSV</a>
           </div>
           <div className="bg-white border rounded p-6 space-y-3">
             <h2 className="text-lg font-semibold">Waste CSV</h2>
             <p className="text-sm text-gray-600">Download waste records with item, quantity, reason and estimated cost lost.</p>
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
             <a href="/api/export/waste" className="inline-flex rounded bg-accent px-4 py-2 text-white">Download waste CSV</a>
           </div>
         </div>

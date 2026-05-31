@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { GetServerSideProps } from 'next'
 import { getSession } from 'next-auth/react'
 import { AppShell } from '@/components/AppShell'
@@ -18,7 +18,7 @@ export default function AdminLogs() {
   const [error, setError] = useState('')
   const [filters, setFilters] = useState({ businessId: '', type: '', status: '' })
 
-  async function load(nextFilters = filters) {
+  const load = useCallback(async (nextFilters = filters) => {
     const params = new URLSearchParams()
     if (nextFilters.businessId) params.set('businessId', nextFilters.businessId)
     if (nextFilters.type) params.set('type', nextFilters.type)
@@ -30,11 +30,11 @@ export default function AdminLogs() {
     }
     setError('')
     setLogs(await res.json())
-  }
+  }, [filters])
 
   useEffect(() => {
     load()
-  }, [])
+  }, [load])
 
   return (
     <AppShell>

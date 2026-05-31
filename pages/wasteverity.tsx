@@ -1,4 +1,5 @@
 import WasteVerityHeader from '@/components/WasteVerityHeader'
+import Link from 'next/link'
 import { useMemo, useState } from 'react'
 
 const modules = [
@@ -162,9 +163,9 @@ export default function WasteVerityLanding() {
           <p className="mt-4 text-blue-100">
             Book a 20-minute walkthrough focused on your current compliance process, waste records, and stock workflow.
           </p>
-          <a href="/register" className="mt-8 inline-flex rounded bg-white px-6 py-3 font-semibold text-blue-700 hover:bg-blue-50">
+          <Link href="/register" className="mt-8 inline-flex rounded bg-white px-6 py-3 font-semibold text-blue-700 hover:bg-blue-50">
             Start WasteVerity setup
-          </a>
+          </Link>
         </div>
       </section>
     </div>

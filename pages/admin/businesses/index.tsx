@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { getSession } from 'next-auth/react'
 import { GetServerSideProps } from 'next'
 import { AppShell } from '@/components/AppShell'
@@ -21,7 +21,7 @@ export default function AdminBusinesses() {
   const [error, setError] = useState('')
   const [filters, setFilters] = useState({ q: '', status: '' })
 
-  async function loadBusinesses() {
+  const loadBusinesses = useCallback(async () => {
     const params = new URLSearchParams()
     if (filters.q) params.set('q', filters.q)
     if (filters.status) params.set('status', filters.status)
@@ -32,11 +32,11 @@ export default function AdminBusinesses() {
     }
     setError('')
     setBusinesses(await res.json())
-  }
+  }, [filters])
 
   useEffect(() => {
     loadBusinesses()
-  }, [])
+  }, [loadBusinesses])
 
   return (
     <AppShell>

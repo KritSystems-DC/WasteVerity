@@ -199,6 +199,51 @@ test.describe('protected API boundaries', () => {
     await tenantPage.close()
   })
 
+  test('validates and scopes compliance records by tenant', async ({ browser }) => {
+    const ownerPage = await browser.newPage()
+    const tenantPage = await browser.newPage()
+
+    await login(ownerPage, owner)
+    const invalidRecord = await ownerPage.request.post('/api/compliance/records', {
+      data: {
+        templateId: 'temperature-log',
+        values: {
+          Date: '2026-05-31',
+        },
+      },
+    })
+    expect(invalidRecord.status()).toBe(400)
+    await expect(await invalidRecord.json()).toMatchObject({ error: 'Missing required fields' })
+
+    const ownerRecordRes = await ownerPage.request.post('/api/compliance/records', {
+      data: {
+        templateId: 'temperature-log',
+        values: {
+          Date: '2026-05-31',
+          Time: '09:30',
+          'Equipment name / ID': 'Owner fridge',
+          'Equipment type': 'Fridge',
+          'Temperature reading': '3',
+          'Within accepted range': true,
+          'Corrective action if outside range': '',
+          'Checked by': 'Owner QA',
+        },
+      },
+    })
+    expect(ownerRecordRes.status()).toBe(201)
+    const ownerRecord = await ownerRecordRes.json()
+
+    const tenant = await registerOwner(tenantPage)
+    await login(tenantPage, tenant)
+    const tenantRecords = await tenantPage.request.get('/api/compliance/records')
+    expect(tenantRecords.status()).toBe(200)
+    const tenantRecordList = await tenantRecords.json()
+    expect(tenantRecordList.some((record: { id: string }) => record.id === ownerRecord.id)).toBe(false)
+
+    await ownerPage.close()
+    await tenantPage.close()
+  })
+
   test('limits team management and notification preferences to owners', async ({ page }) => {
     await login(page, staff)
     const staffCreateTeamUser = await page.request.post('/api/team', {

@@ -32,8 +32,8 @@ Target users:
 ## What This Repo Contains
 
 - Public WasteVerity landing pages and pricing/features pages
-- Authenticated dashboard, inventory, supplier, reorder, waste, expiry, reporting, staff request, billing, and admin pages
-- API routes for inventory, waste, staff requests, reorders, exports, auth, billing, automation, and admin workflows
+- Authenticated dashboard, inventory, supplier, reorder, waste, expiry, reporting, fillable compliance records, staff request, billing, and admin pages
+- API routes for inventory, compliance records, waste, staff requests, reorders, exports, auth, billing, automation, and admin workflows
 - Prisma schema and migrations
 - Seed script for demo users and sample operational data
 - Launch, outreach, production, QA, and 30-day go-to-market documents
@@ -126,10 +126,9 @@ The repo includes placeholder API routes for creating a Stripe Checkout session 
 
 ## Roadmap Ideas
 
-- Temperature log module
-- Compliance task schedules and sign-off workflows
-- Multi-site dashboards
+- Compliance task schedules and recurring reminders
 - Supplier document storage
+- Multi-site dashboards
 - Recipe and menu costing
 - Barcode scanning
 - Mobile-first kitchen workflows

@@ -28,6 +28,8 @@ Date: 2026-05-31
 - Added smoke/API coverage for team management, notification preferences, Stripe portal config handling, validation failures and tenant isolation.
 - Installed local PostgreSQL 16, migrated and seeded the `wasteverity` database.
 - `npm.cmd run test:smoke` passed with the local PostgreSQL service: 18 tests, 18 passed.
+- Added fillable compliance records, saved-record detail pages and compliance API tenant-scope coverage.
+- `npm.cmd run test:smoke` passed after compliance record coverage was added: 20 tests, 20 passed.
 
 ## Current Local Setup
 

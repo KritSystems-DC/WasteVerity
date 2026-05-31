@@ -104,6 +104,10 @@ test.describe('owner workflow', () => {
 
     await expect(page.getByText('Compliance record saved.')).toBeVisible()
     await expect(page.getByRole('cell', { name: 'Fridge / Freezer Temperature Log' }).first()).toBeVisible()
+    await page.getByRole('link', { name: 'View' }).first().click()
+    await expectHeading(page, 'Fridge / Freezer Temperature Log')
+    await expect(page.getByRole('cell', { name: 'Walk-in fridge 1' })).toBeVisible()
+    await expect(page.getByRole('cell', { name: 'QA Checker' })).toBeVisible()
   })
 
   test('creates, edits and adjusts a stock item', async ({ page }) => {

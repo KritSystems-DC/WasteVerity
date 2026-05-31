@@ -44,10 +44,11 @@ The remaining work is split into two tracks:
 - [x] Added admin business/log filtering and business-detail users/recent logs.
 - [x] Tightened supplier and stock tenant-boundary checks.
 - [x] Added smoke/API coverage for validation failures, tenant isolation, team management, notification preferences and Stripe portal config handling.
+- [x] Added fillable compliance documents, saved completed records, record detail views and tenant-scoped compliance API coverage.
 
 ### Verified Locally
 
-- [x] `npm.cmd run test:smoke` passes 18/18 tests.
+- [x] `npm.cmd run test:smoke` passes 20/20 tests.
 - [x] `npx.cmd tsc --noEmit` passes.
 - [x] `npm.cmd run build` passes on Next `15.5.18`.
 - [x] `npm.cmd audit --json` reports 0 vulnerabilities.

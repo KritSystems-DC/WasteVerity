@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { GetServerSideProps } from 'next'
+import Link from 'next/link'
 import { getSession } from 'next-auth/react'
 import { AppShell } from '@/components/AppShell'
 import { formatDateTime } from '@/lib/utils'
@@ -389,7 +390,7 @@ export default function Compliance() {
                   <th className="p-3 text-sm font-semibold">Document</th>
                   <th className="p-3 text-sm font-semibold">Completed by</th>
                   <th className="p-3 text-sm font-semibold">Completed</th>
-                  <th className="p-3 text-sm font-semibold">Action</th>
+                  <th className="p-3 text-sm font-semibold">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -406,7 +407,10 @@ export default function Compliance() {
                       </td>
                       <td className="p-3 text-gray-700">{record.completedByUser.name}</td>
                       <td className="p-3 text-gray-700">{formatDateTime(record.createdAt)}</td>
-                      <td className="p-3">
+                      <td className="flex gap-2 p-3">
+                        <Link href={`/compliance/records/${record.id}`} className="rounded bg-accent px-3 py-1 text-sm text-white">
+                          View
+                        </Link>
                         <button onClick={() => downloadRecord(record)} className="rounded border border-gray-300 bg-white px-3 py-1 text-sm text-gray-800">
                           Download
                         </button>
